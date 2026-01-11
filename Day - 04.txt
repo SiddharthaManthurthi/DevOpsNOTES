@@ -1,0 +1,165 @@
+
+
+uname -> system information
+ls -ltr -> latest files at the bottom in long format
+ls -la  --> Hidden file
+touch  -->create file
+cat -> read or enter the text
+cat > ( to enter the information)
+cat >> (to append/add the information)
+Cat users ( to get all the users information) ( we will have all the user information in ''cp etc/passwd users'' ( means copy uers information to users)
+rm (Remove the files)
+rmdir -> remove directory
+cp cp <source> <destination>  (cp testcopyfile.txt test/  -> means test file will be copied to the test foder)
+
+mv -> rename or move the file (mv testcopyfile.txt testfilename.text --> file will be updated to testfilename in the same folder)
+mv testfilename.text test/testfilenaming.txt ( moving testfilename.text to test folder with renaming)
+
+head and tail
+wget
+curl
+grep -> search for the content
+cut and awk
+
+cut -d ":" -f1  
+awk -F "" '{print $NF}'
+
+awk -F ":" '$3>=1000 {print $1, $3}' users
+
+=========================================================
+
+vim editor -> visually improved
+-----------------------------------
+vim <file-name> -> open the file (If there is file it will open it with the name and if not it will create and open it) 
+create and open the file
+
+When opened you will be in *Esc MODE* ->  =>press i <= -> *insert mode* -> =>Esc TO GO Back to escape mode <= -> =>Press Colon (:)<= -> to go *Colon/command mode*
+
+colon mode
+===========
+:q -> quit
+:wq -> save the file
+:q! -> dont save any changes, force quit
+:set nu -> display numbers
+:<line-number> -> cursor goes particular line number
+:/<word-to-search> -> top to bottom
+:?<word-to-search> -> bottom to top
+:<line-number>dd or linenumber+ d -> deletes that line
+:%d -> delete everything
+:noh -> dont highlight
+:<line-number>s/<word-to-find>/replace-word -> replaces first occurence
+:<line-number>s/<word-to-find>/replace-word/g -> all occurences
+:%s/<word-to-find>/replace-word/g -> all occurences in all lines
+
+
+Esc Mode
+=========
+gg -> takes to top of the file
+shift+g -> takes us to bottom of the file
+u -> undo
+ctrl+r -> redo
+dd -> deletes the line
+yy -> copy the line
+p -> paste below that line
+shift+p -> paste above that line
+
+
+User Management
+===============
+user group roles permissions
+
+user -> human
+group -> group of humans, team
+roles -> position
+permissions -> access level to that roles
+
+CRUD
+
+-> user create
+-> create group/team
+-> assign user to that group
+
+-> remove user from group
+-> delete user
+
+useradd <user-name>
+id <user-name> ( to check user info)
+cat /etc/passwd -> all users info
+cat /etc/group -> display all the groups in server
+
+A user in Linux will have only one primary group and atleast one secondary group
+
+when you create user, group also will be created with same name
+
+groupadd devops (Creating group)
+
+usermod -g <group-name> <user-name>
+usermod -g devops ramesh  (Primary group/adds both)
+usermod -aG testing ramesh  (Secondary group)
+
+passwd ramesh -> set the password
+
+by default only key-based authentications are enabled
+
+Vim /etc/ssh/sshd_config -> ssh configs are here -> search for :/password -> set PasswordAuthentication yes -> :wq to save
+
+sshd -t -> check the syntax of config
+
+# systemctl restart sshd -> shoud restart to appply the configs and then ask the user to lgoin with password 
+
+$ ssh ramesh@54.206.124.236
+
+
+How to give sudo access to user
+
+vim /etc/sudoers (shift g to go down and see wheel is the best prace to add user to this group)
+# usermod -aG wheel ramesh (user now added this group we can ask him to relogin)
+
+
+
+Giving root access to spefic command for example systemctl
+
+which sytemctl ( to know the full path for this command)
+usr/bin/systemctl
+
+vim /etc/sudoers  ( go to the 108 line)
+ramesh  ALL=(ALL)       etc/bin/systemctl  --> (Means granted rootaccess to only this)
+
+
+gpasswd -d <user-name> <group-name> --> reomove from the group
+
+# gpasswd -d ramesh wheel
+Removing user ramesh from group wheel
+[root@ip-172-31-25-208 ec2-user]# id ramesh
+uid=1001(ramesh) gid=1002(devops) groups=1002(devops),1003(testing)
+
+
+1. lock him immidiately ( # usermod -L ramesh)
+2. remove from all groups
+3. take backup of his home folder
+4. delete the user
+
+# id ramesh ->( check his groups)
+uid=1001(ramesh) gid=1002(devops) groups=1002(devops),1003(testing)
+
+# gpasswd -d ramesh testing -> (remove from secondary group)
+Removing user ramesh from group testing
+
+# usermod -g ramesh ramesh -> (move him to orginal group ramesh)
+[root@ip-172-31-25-208 ec2-user]# id ramesh
+uid=1001(ramesh) gid=1001(ramesh) groups=1001(ramesh)
+
+Collect his logs/folder zip pending*****
+.zip -> windows zip format
+.tar.gz
+
+tar -cf <file-name>.tar.gz <folder> (to zip the folder -c- for creation) 
+tar -cf devops.tar.gz devops 
+
+tar -xf <file-name>.tar.gz  (For extraction)
+
+switch to root user and create romesh home files as zip to root home
+tar cf /root/ramesh.tar.gz /home/ramesh
+
+userdel -r ramesh -> remove user ramesh and his home directory
+

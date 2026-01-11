@@ -1,0 +1,270 @@
+**Windows -> Hello == hello ==> case insensitive
+**Linux -> Hello != hello ==> case sensitive
+**pwd -> present working directory
+**cd -> change directory
+**cd.. -> to one step back
+**shift+insert-> To paste
+**Ctrl + Shift + C -> To Copy
+**Ctrl + Shift + V -> To paste
+**clear 
+**history
+**ctrl + r start typing you can see the commands you used
+
+
+absolute path(Full path giving to refer)
+relative path (the folder we are already in so we can give just folder name instead of full path)
+
+/c/devops/daws-88s/daws-88s -> absolute
+daws-88s/daws-88s -> relative
+
+C:\Users\siva -> back slash windows
+/c/Users/siva -> linux format -> pwd
+
+
+ssh-keygen -f daws-88s  (To generate keys)
+ls -l -> files listing (**ls -la**-> (Hidden files and folders))
+
+ssh -i <private-key> user-name@IP
+ssh -i <private-key> ec2-user@98.81.70.98
+
+Linux
+========
+$ -> normal user
+/home/ec2-user -> /home/<user-name>
+
+sudo su -> root access
+# -> super user 
+exit (we can use **exit** command to exit from sudo su to normal user)
+
+sudo su - (sudo su -Older way to do the same, sudo -i	Full root login shell :sudo su	Root shell, keeps user env :su -	Root login (needs root password)sudo cmd	Run one command as root
+
+/root -> root user home directory
+
+everything is command and text in linux
+
+command-name <inputs> <options>
+
+<inputs> <options> -> optional or mandatory based on the command
+
+uname -> print os/kernel infromation (which type of os/linux print)
+uname --help or man uname (detailed information, man means manual)
+
+CRUD -> create read update delete
+
+ls -> list subdirectories ( means if we open a folder it will show sub)
+ls -l -> long format alphabetical order.. file/folder who owns it, size, timestamp -Detailed information
+ls -lr -> Reverse alphabetical order
+ls --help -> to know all options for this command
+ls -lt -> latest files on top with time stamp
+ls -ltr -> latest files at bottom
+ls -a -> hidden files
+cd -> to home directory from wherever you are
+
+==>hidden files/folders start with .
+
+ls -lart -> hidden files and folders (Show all files (including hidden ones) in long format, sorted by time, in reverse order — so the oldest files appear at the bottom)
+
+touch devops.txt ( this will create devops file with txt format)
+
+d rwx r-x r-x -> directory
+- rwx r-x r-x -> file
+
+**cat > devops.txt -> 'enter the text you want' ->Press Enter and Ctrl+d ( to enter values to the file)
+
+**cat filename -> read the content in the file
+
+> -> redirection, usually overrides the previous text ( means if we use single arrow this will delete previous data and enter new data kind of replcement)
+>> -> appends to the previous text ( to add extra/additonal)
+
+
+
+rm devops.txt ( remove the file)
+rmdir devops/ (remove the empty folder)
+rm -rf (removes recursive) ( rm	remove -r	recursive — deletes directory and its contents -f	force — no confirmation, ignore errors)
+
+source -> which file to copy
+destination -> destination
+
+**cp <source> <destination>  (cp testcopyfile.txt test/  -> means test file will be copied to the test foder) **this is copy command**
+cp
+
+**mv -> rename or move the file (mv testcopyfile.txt testfilename.text --> file will be updated to testfilename in the same folder) ** this Can be used to move the file and rename and cut command**
+mv aws.txt devopss/ (moving aws.txt file to devopss folder)
+$ mv testfilename.text test/testfilenaming.txt ( moving testfilename.text to test folder with renaming)
+
+
+downloading files or softwares
+
+**wget and curl  (wget ->downloading from the web/wget is used for downloading packages)
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.113/bin/apache-tomcat-9.0.113.tar.gz
+
+
+**curl -> shows the o/p on the screen, it will not download by default
+curl is used to hit the API URL's
+
+grep -> command to search inside the file
+
+**grep <word-to-search> <file> (word and file) ($ grep user session-02.txt==> will get user )
+-i -> case insensitive (grep -n -i user session-02.txt==> will get user without case sensitive)
+-v -> non matching ($ grep -v user session-02.txt ==> non matching)
+-n -> display line numbers ($ grep -n user session-02.txt==> will get user with row/serial number)
+-c -> matching line numbers count ($ grep -n -i -c user session-02.txt ==will get count of user)
+
+display line number ending with the word architecture
+
+$ -> ending charecter  ($ )grep 'architecture$' user session-02.txt)
+^ -> starting charecter ($ grep '^ssh' user session-02.txt)
+
+ctrl + r start typing you can see the commands you used
+
+$ -> ending 
+^ -> starting
+
+head -> top 10 lines by default ($ head session-02.txt)  (head -n 6 session-02.txt ==>top 6)
+tail -> bottom 10 lines by default ($ tail session-02.txt)( $ tail -n 6 session-02.txt ==> bottm 6)
+
+Example
+===
+5-15
+head -n 15 files =top 15
+tail -n 10 file
+
+Piping |
+======
+
+$ head -n 15 session-02.txt | tail -n 10
+
+$ cat session-02.txt | grep user ( searching inside the file with piping and grep)
+
+**Logs
+
+Logs available to root user on -- ]# cd /var/log/
+=================================================
+tail -f <file-name> -> follow the log ( tail command bcz logs will append to the latest files) (f means follow the log)
+# tail -f dnf.log
+Ctrl + C (to come out)
+
+**cut and awk
+
+echo-> to print
+
+https://raw.githubusercontent.com/daws-88s/notes/refs/heads/main/session-02.txt
+
+example fragment -> [ec2-user@ip-172-31-25-208 ~]$ echo https://raw.githubusercontent.com/daws-88s/notes/refs/heads/main/session-02.txt | cut -d "/" -f5
+notes
+
+Example full lentgh -> $ echo https://raw.githubusercontent.com/daws-88s/notes/refs/heads/main/session-02.txt | cut -d "/" -f1-5
+https://raw.githubusercontent.com/daws-88s/notes
+
+
+cut -d "/" -f1 <file-name>
+
+/etc/passwd  (User information we can see) ==>  [ec2-user@ip-172-31-25-208 ~]$ cat /etc/passwd
+
+$ cut -d ":" -f1 /etc/passwd
+another example --> [ec2-user@ip-172-31-25-208 ~]$ cut -d ":" -f1,3 /etc/passwd
+root:0
+bin:1
+daemon:2
+adm:3
+lp:4
+sync:5
+shutdown:6
+halt:7
+mail:8
+operator:11
+games:12
+ftp:14
+nobody:65534
+dbus:81
+systemd-network:192
+systemd-oom:998
+systemd-resolve:193
+rpc:32
+libstoragemgmt:997
+systemd-coredump:996
+systemd-timesync:995
+sshd:74
+chrony:994
+ec2-instance-connect:993
+stapunpriv:159
+rpcuser:29
+tcpdump:72
+ec2-user:1000
+
+
+=======================================
+awk -F "/" '{print $NF}' ( it is like mini programming language)
+
+Example -1 [ec2-user@ip-172-31-25-208 ~]$ echo https://raw.githubusercontent.com/daws-88s/notes/refs/heads/main/session-02.txt | awk -F "/" '{print $NF}'
+session-02.txt
+
+Example -2 [ec2-user@ip-172-31-25-208 ~]$  awk -F ":" '{print $1F}' /etc/passwd
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown
+halt
+mail
+operator
+games
+ftp
+nobody
+dbus
+systemd-network
+systemd-oom
+systemd-resolve
+rpc
+libstoragemgmt
+systemd-coredump
+systemd-timesync
+sshd
+chrony
+ec2-instance-connect
+stapunpriv
+rpcuser
+tcpdump
+ec2-user
+
+Example -3 [ec2-user@ip-172-31-25-208 ~]$  awk -F ":" '{print $1F,$3F}' /etc/passwd
+root 0
+bin 1
+daemon 2
+adm 3
+lp 4
+sync 5
+shutdown 6
+halt 7
+mail 8
+operator 11
+games 12
+ftp 14
+nobody 65534
+dbus 81
+systemd-network 192
+systemd-oom 998
+systemd-resolve 193
+rpc 32
+libstoragemgmt 997
+systemd-coredump 996
+systemd-timesync 995
+sshd 74
+chrony 994
+ec2-instance-connect 993
+stapunpriv 159
+rpcuser 29
+tcpdump 72
+ec2-user 1000
+
+
+
+*** need to some testing again on linux***
+
+Tomorrow's session
+==================
+vim editor
+user management
