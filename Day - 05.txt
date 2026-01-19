@@ -44,13 +44,17 @@ tar -cf *.tar.gz folder_name
 
 awk and cut commands
 
-Permissions
+***Permissions****
 ============
 - 	rw- 		r-- 	r--
-	User/owner	group	others
+	User/owner	group	others	
 	u			g		o
 
-chmod o+w perm
+chmod o+x permission  (giving excute access to others for permissions file)
+
+chmod o-w persmission.txt (removing write access)
+chmod ugo+x persmission.txt ( excute access to all)
+
 either owner of the file or root user can only change access levels
 
 R -> 4
@@ -58,21 +62,23 @@ W -> 2
 X -> 1
 
 chmod 764
+$ chmod 764 persmission.txt  (rwx7 - user/owner, rw6 -groups, r4 -other
 
 Ownership
 ===========
 chown <user>:<group> 
 ownership can only be changed by root user. not even owner of the file can change the ownership
 
-employee joins organisation
+employee joins organisation/ giving key based authentication **(( need to revisit this topic)**
 ==========================
-1. He should generate keys
-2. send public key to admins
-3. admin creates .ssh folder inside user home directory
-4. permission should be 700 for .ssh
-5. ownershop should be user including group
-6. create authorized_keys inside .ssh folder and paste public key in it
-7. authorized_keys permission should be max 600
+1. He should generate keys (ssh-keygen -f rahim)
+2. send public key to admins (send via mail or any)
+3. admin creates .ssh folder inside user home directory (sudo useradd rahim), sudo -su ,cd /home/rahim/, mkdir .ssh (creating a folder),-> cd .ssh, creating file --> touch authorized_keys, vim authorized_keys (here paste his public key)( now giving owneer and access to rahim for.ssh -- chown rahim:rahim -R .ssh/)
+4. permission should be 600 for authorized_keys
+5. permission should be 700 for .ssh
+6. ownershop should be user including group 
+7. create authorized_keys inside .ssh folder and paste public key in it
+8. authorized_keys permission should be max 600
 
 then user can login
 
@@ -80,7 +86,7 @@ ssh -i rahim rahim@3.85.244.109
 add him to wheel group
 /etc/sudoers
 
-package management
+package management / how to install packages to linux
 =================
 yum -> old rhel
 dnf -> latest
@@ -91,7 +97,7 @@ dnf install <package-name> -> redhat based instances
 
 /etc/yum.repos.d/ -> all URLS are configured
 
-he developed Linux kernel from the scratch using c language... he invented git also..
+The kernel was created by Linus Torvalds in 1991he developed Linux kernel from the scratch using c language... he invented git also..
 
 flavours or distributions
 
@@ -105,19 +111,39 @@ IBM
 1. community edition -> free
 2. enterprise edition -> support redhat
 
-dnf install <package-name>
+dnf install <package-name>    (Sudo Access required) ( it will also install dependcies
+
+sudo dnf install nginx
+
+cd /etc/yum.repos.d/
+# ls -l
+total 8
+-rw-r--r--. 1 root root 1028 Dec 29 21:08 amazonlinux.repo
+-rw-r--r--. 1 root root  729 Dec 29 21:08 kernel-livepatch.repo
+
+[root@ip-172-31-20-23 yum.repos.d]# cat amazonlinux.repo  (to check the url details)
+
+dnf remove nginx -y (removes without asking)
+dnf list install ( to check what all installed)
+dnf list available ( available for install)
+dnf search python/ ( searching all related to python)
+
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+	
+# sudo yum install jenkins -y  (to install junkins)
+sudo yum remove jenkins -y     (to remove junkins)
 sudo yum upgrade
 # Add required dependencies for the jenkins package
 sudo yum install fontconfig java-21-openjdk
 sudo yum install jenkins
 sudo systemctl daemon-reload
 
+
 Service Management
 ===================
-0-65,535
+0-65,535 (how many pods in system)
 
 https://facebook.com
 
@@ -134,20 +160,20 @@ Street name ->
 Apartment name ->
 Flat number -> 
 
-systemctl start <service-name>
+systemctl start <service-name>  -> sudo systemctl strat nginx
 systemctl restart <service-name>
 systemctl status <service-name>
 systemctl enable <service-name> -> auto start
 systemctl disable <service-name>
 
-systemctl start wget
-systemctl start curl
+systemctl start wget ( No, Only services)
+systemctl start curl ( No, Only services)
 
 nginx -> http/web server -> port 80
 
 systemctl status <service-name> -> check service is running or not
 
-network management
+network management (providing network to a server)
 =================
-netstat -lntp -> check port is running or not and accessible to internet
+****netstat -lntp -> check port is running or not and accessible to internet (l for listing n number t for transfer procol  p for program)
 

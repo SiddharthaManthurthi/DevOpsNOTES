@@ -1,0 +1,172 @@
+process management
+=====================
+TM --> TL --> TM --> Senior --> Junior --> Frehser
+
+TM --> 5 tasks for 5 TL
+
+ls -l --> it creates a process and assign a process ID, executes the command in kernel --> get the o/p --> display on screen
+
+ps ( Process strted by the current username)
+whatever the task you give to linux first it will one PID then work on it,gives the results and complete the process
+
+ps -ef (to see all the process)
+
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 May02 ?        00:00:15 /usr/lib/systemd/systemd --switched-root --system --deserialize=32
+root           2       0  0 May02 ?        00:00:00 [kthreadd]
+root           3       2  0 May02 ?        00:00:00 [rcu_gp]
+root           4       2  0 May02 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 May02 ?        00:00:00 [slub_flushwq]
+root           6       2  0 May02 ?        00:00:00 [netns]
+root           8       2  0 May02 ?        00:00:00 [kworker/0:0H-events_highpri]
+root          10       2  0 May02 ?        00:00:00 [mm_percpu_wq]
+
+PID and PPID (parent processing ID)
+
+ps -ef | grep <process-name>
+
+foreground and background process
+
+
+sleep 10  (foregrounds which blocks the screen, we cant do anything)
+sleep 10 &  (example runs background)
+
+sleep 100 & ( which runs 100 seconds in the backend)
+& to take process into background
+
+kill PID --> request to terminate  (should not kill the parent which will be in the third column, kill the seond column id)
+kill -9 PID  (like force kill using -9)
+
+systemctl status nginx
+ps -ef | grep nginx
+
+we have application running --> PID
+
+10 users --> 0.1% CPU 0.1% RAM
+2000 users --> 10% CPU, 20% RAM
+10 users 
+
+top (to check whih process is cosuming more)
+
+***top -p PID --> check the resources used by particular process
+
+get the logs and kill process and restart services
+
+Network management
+===========================
+how do you check open ports in linux
+
+netstat -lntp
+
+systemctl status <service-name>
+ps -ef | grep service-name
+netstat -lntp
+top -p PID
+
+3 tier architecture
+===========================
+desktop vs web application
+
+resources usage more
+hang
+installation
+upgrade
+storage
+compatability issues
+no data security/backup
+can't access everywhere
+what if it crashes all data lost
+
+
+Applications move to web - 1 tier -> 2 tier -> 3 tier
+
+architecture is important
+
+road side breakfast shop = 1 tier
+==========================
+single person --> less than 10
+
+taking order, cooking the item, serving, payment collection
+
+(one server for all)
+
+hotel - 2 tier
+=====================
+cook --> prepares the item
+owner --> counter --> issuing tokens
+
+let's say 20 members
+
+(seperate dabase server and application server)
+
+restaurant - 3 tier
+=====================
+captain --> welcomes the customer
+waiter --> takes the order
+chef --> prepares the order
+waiter --> garnish with cabbage, onion, lemon, keera, etc.
+customer
+
+Raw food items > Chef cooks them > Decorates them > Customer eats them
+
+100 members
+
+(Database server -> application server can access the data -> Handovers the data to web server ->
+ web server decorates them with HTML,CSS AND JS -> Show to user
+
+directly to chef
+==================
+1. security
+2. queue management --> reduces taste of item
+3. maintenance issues
+
+select * from users where username = 'siva@joindevops.com' and password = 'siva123'
+
+visual studio, putty, terraform, aws cli v2
+
+
+
+Load Balance ========> Web Server/Front End =========> Application Server/Back End ========> Database
+
+                            HTML                        Java                                  Structured -Fixed Schema (Tables,rows,columns)
+							JS							Python								  ==========================
+							CSS							.Net								  -MySQL
+							AngularJS				    Go									  -Postgress
+							ReactJS					    NodeJS								  -MSSQL
+																							  -ORACLE
+																							   
+																							   Semi Structured (Flexible schema but still orginized (JSON,KEY VALUE,DOCUMENTS)
+																							   ===================================
+																							   MongoDB (DOCUMENTS/json)
+	------		Web Tier	------------				-----		App Tier-----			   Redis (Key value)
+																							   Kafka (event streams, messages)
+																							   
+																							   
+																						       Unstructured  (No predefines schema)
+																							   ==================================
+																							   Text
+																							   files
+																							   images
+																							   Videos
+																							   pdf's
+																							   logs raw files
+																						
+																							   MySQL
+																							   Postgress
+																							   MSSQL
+																							   Redis
+																							   MongoDB
+																							   Kafka
+																							   ELK
+																							   
+																							   
+
+
+
+For project
+============
+devops-practice  --ID - ami-09c813fb71547fc4f
+RHEL -9 -> Enterprise Community
+RHEL-9-DevOps-Practice
+ec2-user DevOps321 ip 34.235.127.157
+ssh ec2-user@34.235.127.157

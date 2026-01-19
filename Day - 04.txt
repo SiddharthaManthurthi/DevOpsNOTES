@@ -163,3 +163,53 @@ tar cf /root/ramesh.tar.gz /home/ramesh
 
 userdel -r ramesh -> remove user ramesh and his home directory
 
+
+
+ExTRASS
+========
+🖥️ Essential Linux Terminal Shortcuts
+🔍 Navigation
+Ctrl + A → Move to the beginning of the line.
+
+Ctrl + E → Move to the end of the line.
+
+Alt + B → Move backward one word.
+
+Alt + F → Move forward one word.
+
+✂️ Editing
+Ctrl + U → Delete from cursor to start of line.
+
+Ctrl + K → Delete from cursor to end of line.
+
+Ctrl + W → Delete the word before the cursor.
+
+Alt + D → Delete the word after the cursor.
+
+Ctrl + Y → Paste (yank) the last deleted text.
+
+⚡ Process Control
+Ctrl + C → Kill the current process.
+
+Ctrl + Z → Suspend the current process.
+
+Ctrl + D → Log out / send EOF (end of file).
+
+Ctrl + L → Clear the terminal screen.
+
+📜 History & Search
+Ctrl + R → Reverse search through command history.
+
+!! → Repeat the last command.
+
+!abc → Run the last command starting with “abc”.
+
+↑ / ↓ arrows → Scroll through previous commands.
+
+🗂️ File & Tab Tricks
+Tab → Autocomplete file or command.
+
+Ctrl + T → Swap the last two characters typed.
+
+Alt + . → Insert the last argument from the previous command.
+

@@ -1,0 +1,202 @@
+devops-practice
+Name: Redhat-9-DevOps-Practice 
+AMI ID: ami-0220d79f3f480ecf5
+ec2-user 
+DevOps321
+------------------------------------------------------------
+
+AMI -- Amazon Machine Image 
+enterphrize organizations direct redhat servers or ubuntu servers use cheyakuda 
+vatiki konchem customize chesi use chestharu like base os, packages, and applicatons etc
+so that manki kavlsinapudu servers same flavor  servers create cheskovachu
+
+
+**expense-documentation/3-tier-architecture.svg**
+
+-> Create 3 ec2 instances (database-server,application-server,frontend-server)
+Linux Server -> DB server(Software Server created inside linux server)
+
+mobaxterm--> for opening multiple servers easily in new tab (Client software putty,super putty,gitbash,mobaxterm)( https://mobaxterm.mobatek.net/download.html)
+
+----------------------------------------------------------------------------------------------------------------------------------
+Devlopers/artcitects creates a documentation (Example - https://github.com/daws-88s/expense-documentation/blob/main/mysql.MD)
+
+Creating Database
+=================
+
+Switch to sudo access for installing my sql
+
+
+-> dnf install mysql-server -y
+
+[[SQL -> Structured Query Language
+RDBMS -> relational database management system
+tools-	mysql, oracle, postgress, mssql etc. (table and columns, there will be relationsip between tables via primary key and foreign key)
+users
+-----
+Primary Key -> ID
+	
+ID   Name  MOBILE
+1001 Sid    9182
+
+payments
+-------
+	
+ID USER ID  AMOUNT DATE
+1  1001      2000    17TH JAN
+
+Primary key -> ID
+foreign key -> User ID ]]
+
+
+-> Start MySQL Service
+
+systemctl enable mysqld     (means even if stop and restart the server it will automatically start)
+systemctl start mysqld      ( For starting)
+systemctl status mysqld     ( to check if it is running)
+ps -ef | grep mysql         ( to check if it is running)  
+netstat -lntp              ( to check if it is running and see port number=3306)   
+
+-> Password set up ( if we install mysql it show it as root so we need to setup password for that)
+
+user name -> root
+default port -> 3306
+
+mysql_secure_installation --set-root-pass ExpenseApp@1
+
+-> Verification
+
+mysql -h <host-address/private ip> -u root -p<password>  (Usually command to connect mysql server)
+
+mysql -h 172.31.31.127 -u root -pExpenseApp@1
+
+mysql> ( You are now logged into my sql if it shows this name)
+
+
+server ==> mysql-server
+client package ==> mysql ( this installs automatically) (in mysql we have different schemas/databases tables within it)
+
+=>show databases; ( you can use  command to check schemas/databases exist)
+=> use mysql; (to select schemas/databases)
+=>show tables; ( Once you are in particular schema, you can get the list of tables)
+=>select * from <table_name>;  (star means everything)
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Backend ( Backend service is responsible for adding the given values to database. Backend service is written in NodeJS, Hence we need to install NodeJS)
+========
+
+We are going to use nodejs as our backend language, version number 20 (we usally dont intall latest version prefers minus-2)
+
+Switch to sudo access for installing nodejs
+
+=>dnf module list nodejs ( list the multiple modules/version  showing how many  versions available)
+=>dnf module disable nodejs -y ( disbling bcz we dont which version it is intallin/disabling default)
+=>dnf module enable nodejs:20 -y  (  enabling specifically 20 version)
+=>dnf install nodejs -y    ( now it will install 20 version)
+=> sshd -t ( to check if anything is breaking/mismatching bcz of dependencies packages)
+=> dnf update -y openssh openssh-server openssh-clients  ( to update dependencies Packages)
+
+
+Add application User
+--------------------
+system users =human accounts -> username and password ==non-human accounts -> username but no password
+
+=>useradd expense  (User expense is a function / daemon user to run the application. Apart from that we don't use this user to login to server)
+=>mkdir /app  (We keep application in one standard location, creating app directory) /(endulo we download application code)
+=>curl -o /tmp/backend.zip https://expense-joindevops.s3.us-east-1.amazonaws.com/expense-backend-v2.zip ( means this will store this in the temporary folder temp)/tmp -> OS stores temp files here, these are not really important
+=>cd /tmp/ to switch to temp folder to check
+=>ls -l (you can see downloaded  backend zip)
+=>cd /app (switch to the app to unzip)
+=>unzip /tmp/backend.zip (unzips the file from tmp to  app)
+=>ls -l ( you will see .js file)
+=>cat package.json  ( to check application details and dependencie versions)
+
+NodeJS
+=====
+extension -> .js
+libraries == dependencies
+
+package.json ==> this is called build file where developers mention dependencies and application details
+npm -> node package manager -> build tool
+
+                NodeJS			  Java		 Python				.NET
+File externsion  .js			.java		.py					.net/.aspx
+Build file       package.json	pom.xml		requirements.txt	*.csproj
+Build tool      npm			  maven		     pip					nuget
+
+=>npm install  (reads package.json and download the dependencies from internet) 
+=>ls -l  (dependencies will be stored in the node_modules)
+
+-------------------------------------------------------
+
+what is nginx?
+ngnix is a virtul server that is used to for web server mana application ni deploy chestham
+frontend page kosam web server ni use chestham like topcat apache, tomcat HTTP, nginx
+this can also used as load balancer and reverse proxy
+
+
+(dnf install nginx -> systemctl start nginx  ( to run the application we use nginx but here this is our custom application and we dont use dnf install backend)
+
+systemctl -> more flexible to start/stop/enable/restart/status
+
+.service files -> /etc/systemd/system -> *.service   (For customized applications)
+
+systemctl start nginx -> /etc/systemd/system/nginx.service ( this will start from this directory)
+
+We need to setup a new service in systemd so systemctl can manage this service
+-------------------------------------------------------------------------------Setup SystemD Expense Backend Service
+sytemctcl services file syntax
+
+--> We need to create file in the below location
+=>vim /etc/systemd/system/backend.service
+
+Give below ->
+
+[Unit]
+Description = Backend Service
+
+[Service]
+User=expense
+Environment=DB_HOST="<MYSQL-SERVER-IPADDRESS/"
+ExecStart=/bin/node /app/index.js
+SyslogIdentifier=backend
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+Public IP vs Private IP
+========================
+Actual Name vs Sweet Name
+
+External and Internal
+
+
+| Public IP                    | Private IP                             |
+| :--------------------------- | :------------------------------------- |
+| Accessible from the internet | Only accessible within a local network |
+| Unique globally              | Unique only within the local network   |
+| Assigned by ISP              | Assigned by router or network admin    |
+| Example: Website servers     | Example: Your laptop at home           |
+
+
+After saving with :wq  we need to reload the services
+
+=>systemctl daemon-reload   (For any changes in the file we need to reload)
+=>systemctl start backend
+=>systemctl enable backend
+=>dnf install mysql -y
+=>mysql -h 172.31.31.127 -uroot -pExpenseApp@1 < /app/schema/backend.sql  ( mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql)
+=>systemctl restart backend
+ =>netstat -lntp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1257/sshd: /usr/sbi
+tcp6       0      0 :::8080                 :::*                    LISTEN      48992/node
+tcp6       0      0 :::22                   :::*                    LISTEN      1257/sshd: /usr/sbi
+
+----------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=db-6Da3r4yM&list=PL1jY4BuFJn1fglENjNyvyGkJz3fCcHNR-&index=3
+1:24
