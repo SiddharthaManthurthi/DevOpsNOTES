@@ -1,0 +1,111 @@
+Frontend server
+=================
+
+Nginx
+-------
+what is nginx? popular http web server, web proxy , it replaced apache
+
+ngnix is a virtul server that is used to for web server mana application ni deploy chestham
+frontend page kosam web server ni use chestham like topcat apache, tomcat HTTP, nginx
+this can also used as load balancer and reverse proxy
+
+==>dnf install nginx -y 
+
+Important directories
+configs-> /etc/nginx (for every tool there will configurations stored in this directory)
+HTML -> /usr/share/nginx/html ( html is will be located here by default but we dont disturb them)
+Logs -> /var/log/nginx  (logs here)
+Default page -> /usr/share/nginx/html/index.html  ( if we do http with public ip and nginx port number will see default page that is coming from here)
+
+
+==>systemctl enable nginx
+==>systemctl start nginx
+==>netstat -lntp  (default port number is 80 for nginx)
+==>rm -rf /usr/share/nginx/html/* (removing default content forcefully)
+==> curl -o /tmp/frontend.zip https://expense-joindevops.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip  (downloaded our frontend code)
+==>cd /usr/share/nginx/html  (moving to the folder to unzip it)
+==>unzip /tmp/frontend.zip (unzipped, you will index.html file with our code)
+Try to access the nginx service once more over the browser and ensure you get expense content.
+
+Create Nginx Reverse Proxy Configuration
+------------------------------------------------------------------
+Proxy -> means on behalf of someone
+
+Forward Proxy and Reverse Proxy
+
+ Forward Proxy = Mobile ---> Proxy/vpn ---> Netflix  
+                    (Client --> Server/Client ---> Server)
+					 
+1. Hiding client identity
+2. Sits in between client and server
+3. Client aware
+4. Vpn,content filter
+5. Can be used for caching
+
+ Reverse Proxy = Laptop <--- Proxy/vpn <--- Facebook   ( if you are accessing facebook you are not acessing their backend)
+
+1. Hiding server identity
+2. Server aware
+3. Security reasons and queue management/load balancing
+4. User for ssl termination  ( checking only at the entry point and breaks the https)
+
+
+==>vim /etc/nginx/default.d/expense.conf  (here we need to configure how to communicate front end and backend)
+
+==> proxy_http_version 1.1;
+
+location /api/ { proxy_pass http://localhost:8080/; }
+
+location /health {
+  stub_status on;
+  access_log off;
+}
+
+proxy_http_version 1.1;
+
+location /api/ { proxy_pass http://172.31.75.248:8080/; }
+
+location /health {
+  stub_status on;
+  access_log off;
+}
+
+==> systemctl restart nginx  (Now we are restarting as we updated the configurations)
+you can enter the data
+you can go to the dabase mysql and query the data
+show databases;
+use transactions;
+show tables;
+select * from transactions
+
+============================
+HTTPS METHODS
+===================
+
+GET -> Reading
+POST -> Creating the data
+PUT -> Update
+DELETE -> Deleting
+
+HTTP response code meanings
+
+2XX --> Success
+4XX --> client side errors
+5XX --> server side errors
+1XX --> informational
+3XX --> redirectional
+
+HTTP Methods --> GET, POST, PUT, DELETE, OPTIONS
+
+=======================
+DNS
+=======================
+Domain Name System
+
+Name -> Mobile numer  (how we save contacts in mobile)
+Humans -> Names
+Computers -> Numbers
+
+DNS bridgers both someone manages ip address and domain name  facebook.com ==33.45.78.212
+
+ICANN -> Internet Corporation for Assigned Names and Numbers a non profit organisation

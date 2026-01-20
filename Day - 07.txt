@@ -68,7 +68,7 @@ mysql_secure_installation --set-root-pass ExpenseApp@1
 
 mysql -h <host-address/private ip> -u root -p<password>  (Usually command to connect mysql server)
 
-mysql -h 172.31.31.127 -u root -pExpenseApp@1
+mysql -h 172.31.76.2 -u root -pExpenseApp@1
 
 mysql> ( You are now logged into my sql if it shows this name)
 
@@ -191,11 +191,16 @@ After saving with :wq  we need to reload the services
 =>mysql -h 172.31.31.127 -uroot -pExpenseApp@1 < /app/schema/backend.sql  ( mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql)
 =>systemctl restart backend
  =>netstat -lntp
+ 
+ ===Portno :8080
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
 tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1257/sshd: /usr/sbi
 tcp6       0      0 :::8080                 :::*                    LISTEN      48992/node
 tcp6       0      0 :::22                   :::*                    LISTEN      1257/sshd: /usr/sbi
+
+=> telnet 172.31.76.2 3306  ( private ip Database and port number mysql) it will give a ring to check if the connection is established or not)
+
 
 ----------------------------------------------------------------------------------------------------------------
 https://www.youtube.com/watch?v=db-6Da3r4yM&list=PL1jY4BuFJn1fglENjNyvyGkJz3fCcHNR-&index=3
