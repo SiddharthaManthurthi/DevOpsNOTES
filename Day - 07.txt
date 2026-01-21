@@ -205,3 +205,11 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 ----------------------------------------------------------------------------------------------------------------
 https://www.youtube.com/watch?v=db-6Da3r4yM&list=PL1jY4BuFJn1fglENjNyvyGkJz3fCcHNR-&index=3
 1:24
+
+1. Installing programming runtime
+2. Create a directory and system user
+3. Download and unzip the code
+4. Install dependencies
+5. Create systemctl service
+6. Run DB scripts if required
+7. Start the application

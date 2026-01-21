@@ -11,7 +11,7 @@ this can also used as load balancer and reverse proxy
 
 ==>dnf install nginx -y 
 
-Important directories
+Important directories 
 configs-> /etc/nginx (for every tool there will configurations stored in this directory)
 HTML -> /usr/share/nginx/html ( html is will be located here by default but we dont disturb them)
 Logs -> /var/log/nginx  (logs here)
@@ -77,6 +77,7 @@ show databases;
 use transactions;
 show tables;
 select * from transactions
+
 
 ============================
 HTTPS METHODS
