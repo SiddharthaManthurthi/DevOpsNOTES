@@ -54,7 +54,7 @@ I need to approach popular domain registars like godaddy, hostinger, etc.
 Root servers has TLD information...
 
 
-Browser -> Cache -> OS -> Cache -> ISP DNS Resolver -> Cache -> Root servers -> TLD information -> Contact TLD -> godaddy -> it will now fetch A record for us
+Browser -> Cache -> OS -> Cache -> ISP (Intern Service Provider)DNS Resolver -> Cache -> Root servers -> TLD information -> Contact TLD -> godaddy -> it will now fetch A record for us
 
 ED -> 
 Local police -> MOEA -> MOHA -> Interpole police -> US courts -> Porkbun

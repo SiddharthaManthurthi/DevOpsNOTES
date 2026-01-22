@@ -61,9 +61,11 @@ location /health {
   access_log off;
 }
 
+
+Example with iP OR Subdomain
 proxy_http_version 1.1;
 
-location /api/ { proxy_pass http://172.31.75.248:8080/; }
+location /api/ { proxy_pass http://172.31.75.248:8080/; } or { proxy_pass http://backend.siddharthais.online:8080/; }
 
 location /health {
   stub_status on;
@@ -71,6 +73,8 @@ location /health {
 }
 
 ==> systemctl restart nginx  (Now we are restarting as we updated the configurations)
+
+==> Now update front end public ip in the route 54 for subdomain so this will be availanle for people to access
 you can enter the data
 you can go to the dabase mysql and query the data
 show databases;

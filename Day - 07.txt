@@ -66,7 +66,7 @@ mysql_secure_installation --set-root-pass ExpenseApp@1
 
 -> Verification
 
-mysql -h <host-address/private ip> -u root -p<password>  (Usually command to connect mysql server)
+mysql -h <host-address/private ip> -u root -p<password>  (Usually command to connect mysql server But if your client and server both are in a single server, you can simply issue mysql)
 
 mysql -h 172.31.76.2 -u root -pExpenseApp@1
 
@@ -151,14 +151,14 @@ sytemctcl services file syntax
 --> We need to create file in the below location
 =>vim /etc/systemd/system/backend.service
 
-Give below ->
+Give below (instead my sql ip we can use sub domain name from route53 (db.siddharthais.online so if there are changes in the ip servere we can simple update it in the aws by reducing the ttl)->
 
 [Unit]
 Description = Backend Service
 
 [Service]
 User=expense
-Environment=DB_HOST="<MYSQL-SERVER-IPADDRESS/"
+Environment=DB_HOST="<MYSQL-SERVER-IPADDRESS/Subdomain"
 ExecStart=/bin/node /app/index.js
 SyslogIdentifier=backend
 
@@ -188,9 +188,9 @@ After saving with :wq  we need to reload the services
 =>systemctl start backend
 =>systemctl enable backend
 =>dnf install mysql -y
-=>mysql -h 172.31.31.127 -uroot -pExpenseApp@1 < /app/schema/backend.sql  ( mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql)
+=>mysql -h 172.31.31.127 -uroot -pExpenseApp@1 < /app/schema/backend.sql  ( mysql -h <MYSQL-SERVER-IPADDRESS/sub domain> -uroot -pExpenseApp@1 < /app/schema/backend.sql)
 =>systemctl restart backend
- =>netstat -lntp
+=>netstat -lntp
  
  ===Portno :8080
 Active Internet connections (only servers)
@@ -200,6 +200,9 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 tcp6       0      0 :::22                   :::*                    LISTEN      1257/sshd: /usr/sbi
 
 => telnet 172.31.76.2 3306  ( private ip Database and port number mysql) it will give a ring to check if the connection is established or not)
+=> curl http://localhost:8080/healh ( this is also way to check it is running)
+=>sytemctcl status
+ps -ef | grep node 
 
 
 ----------------------------------------------------------------------------------------------------------------
