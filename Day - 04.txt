@@ -35,6 +35,23 @@ create and open the file
 
 When opened you will be in *Esc MODE* ->  =>press i <= -> *insert mode* -> =>Esc TO GO Back to escape mode <= -> =>Press Colon (:)<= -> to go *Colon/command mode*
 
+Esc Mode
+=========
+gg -> takes to top of the file
+shift+g -> takes us to bottom of the file
+u -> undo
+ctrl+r -> redo
+dd -> deletes the line
+yy -> copy the line
+p -> paste below that line
+shift+p -> paste above that lineuuuu
+
+Insert Mode
+=============
+Esc -> U = Undo what you just deleted
+Esc → Ctrl + r = Redo the deletion
+
+
 colon mode
 ===========
 :q -> quit
@@ -52,16 +69,7 @@ colon mode
 :%s/<word-to-find>/replace-word/g -> all occurences in all lines
 
 
-Esc Mode
-=========
-gg -> takes to top of the file
-shift+g -> takes us to bottom of the file
-u -> undo
-ctrl+r -> redo
-dd -> deletes the line
-yy -> copy the line
-p -> paste below that line
-shift+p -> paste above that line
+
 
 
 User Management

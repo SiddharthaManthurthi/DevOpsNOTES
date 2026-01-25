@@ -202,7 +202,9 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 => telnet 172.31.76.2 3306  ( private ip Database and port number mysql) it will give a ring to check if the connection is established or not)
 => curl http://localhost:8080/healh ( this is also way to check it is running)
 =>sytemctcl status
-ps -ef | grep node 
+=>ps -ef | grep node 
+=>netstat -lntp
+=>nslookup mongodb.siddharthais.online(verifying dns ip)
 
 
 ----------------------------------------------------------------------------------------------------------------

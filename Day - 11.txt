@@ -1,0 +1,112 @@
+A 	 -> IPv4 = old IP format(Maps a domain name to an IPv4 address example.com → 93.184.216.34)
+AAAA -> IPv6 = new IP format(Maps a domain name to an IPv6 address example.com → 2606:2800:220:1:248:1893:25c8:1946)
+MX 	 -> Mail
+NS	 -> Domain authority
+CNAME -> Point to another domain
+TXT  -> verification
+
+1XX -> informational
+2XX -> Success
+3XX -> Redirectional
+4XX -> Client error
+5XX -> Server error
+
+NoSQL
+============================================================
+data is un sctructured
+useful when huge amounts of data
+data is stored as documents
+generally used for product catalouges, Real-time analytic, etc but not for transactions
+
+Redis
+===============================================================
+in-memory(RAM) database (RAM FOR FAST ACCESS)
+in-memory(RAM) database
+HD -> RAM -> Processor
+key-value database
+apps -> cache (RAM) -> database
+
+Asynchronous
+==============================================================
+ActiveMQ, IBM MQ, RabbitMQ, Kafka, etc...  (For huge amount of data processing)
+
+Synchronous == Request and wait for response (The client is blocked until the server replies = Example: HTTP / REST API)
+Asynchronous ==Send request and don’t wait immediately (Processing happens in the background ,Response may come later (or not at all) = Examples: Email, WhatsApp, message queues
+
+Client → Request → Server → Response (wait)
+Asynchronous = fire and forget  -> mail, whatsapp, etc.. ( use mostly in ecommerce)
+
+Prodcuer -> Who is sending message
+Consumer -> Who is consuming message
+
+No waiting, good user experience
+Scalability
+Reliability
+
+
+Loose Coupling -> Independent
+
+Tight Coupling -> Dependent with on our system
+Queue management -> FIFO
+
+Pub/Sub -> 1 to many
+Queue -> 1 to 1
+Publisher -> Who is sending message
+Subscriber -> Who is following
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+roboshop is 3 - tier appliation
+---------------------------------------------------------
+In db tier we use the following
+
+1.mongoBD   27017  (systemctl status mongod => ps -ef | grep mongo => netstat -lntp  (port-27017) (nslookup mongodb.siddharthais.online =verifying dns ip)
+2.redis  6379
+3.mysql  3306
+4.rabbitmq 5672
+--------------------------------------------------------
+In Application Tier we use following components
+1.catalogue - 8080
+2.user - 8080
+3.cart - 8080
+4.shipping (java)
+5.payment  (python)
+6.dispatch
+---------------------------------------------------------
+In Web tier we using following
+ nginx - 80
+--------------------------------------------------------------------
+
+detailed documentation availabe at https://github.com/daws-88s/roboshop-documentation
+
+Checking Nginx Access/error logs -->App server logs -> Check database running and connection established
+
+/var/log/nginx/access.log ----- for webserver logs (Shift +G= to goto bottom)
+
+==>Cd /var/log/nginx/
+ls -l
+less access.log  ((Shift +G= to got bottom)
+less access.log  ((Shift +G= to got bottom) q for quit
+
+/var/log/messages ----------for app server logs
+journalcl -u catalogue  ---------------- (checking logs specific)
+journalcl -u catalogue -f ----dynamic following logs (Catalogs server)
+
+
+-=================================================================================================================================
+
+->gnerally databases by default not accept connections from remote servers
+
+->backend -> combining all components in single module
+
+->component == module == application
+->node == box == server
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+=> telnet 172.31.76.2 3306  ( private ip Database and port number mysql) it will give a ring to check if the connection is established or not) (ctrl+d to esacape)
+=> curl http://localhost:8080/healh ( this is also way to check it is running)
+=>sytemctcl status
+=>ps -ef | grep node 
+=>netstat -lntp
+=>nslookup mongodb.siddharthais.online(verifying dns ip)
