@@ -24,8 +24,8 @@ Devlopers/artcitects creates a documentation (Example - https://github.com/daws-
 Creating Database
 =================
 
-Switch to sudo access for installing my sql
 
+Switch to sudo access for installing my sql
 
 -> dnf install mysql-server -y
 

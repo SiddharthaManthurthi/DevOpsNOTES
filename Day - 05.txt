@@ -86,8 +86,10 @@ ssh -i rahim rahim@3.85.244.109
 add him to wheel group
 /etc/sudoers
 
-package management / how to install packages to linux
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package management / how to install packages to linux (package manager connects to internet windows website. downloads them and install them)
 =================
+
 yum -> old rhel
 dnf -> latest
 
@@ -140,7 +142,7 @@ sudo yum install fontconfig java-21-openjdk
 sudo yum install jenkins
 sudo systemctl daemon-reload
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Service Management
 ===================
 0-65,535 (how many pods in system)
@@ -153,14 +155,7 @@ port 22 sshd service is running
 1. get the facebook.com IP address
 2. connect to the service running on port 443
 
-Delhi -> Hyderabad
-
-HYD pincode -> HYD central office
-Street name ->
-Apartment name ->
-Flat number -> 
-
-systemctl start <service-name>  -> sudo systemctl strat nginx
+systemctl start <service-name>  -> sudo systemctl start nginx
 systemctl restart <service-name>
 systemctl status <service-name>
 systemctl enable <service-name> -> auto start

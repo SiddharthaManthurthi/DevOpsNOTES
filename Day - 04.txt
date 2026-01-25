@@ -36,24 +36,24 @@ create and open the file
 When opened you will be in *Esc MODE* ->  =>press i <= -> *insert mode* -> =>Esc TO GO Back to escape mode <= -> =>Press Colon (:)<= -> to go *Colon/command mode*
 
 Esc Mode
-=========
-gg -> takes to top of the file
-shift+g -> takes us to bottom of the file
+=========------------------------------------------------------------------
 u -> undo
 ctrl+r -> redo
-dd -> deletes the line
 yy -> copy the line
+gg -> takes to top of the file
+shift+g -> takes us to bottom of the file
+dd -> deletes the line
 p -> paste below that line
 shift+p -> paste above that lineuuuu
 
 Insert Mode
-=============
+=============--------------------------------------------------------------------------------------
 Esc -> U = Undo what you just deleted
 Esc → Ctrl + r = Redo the deletion
 
 
-colon mode
-===========
+Colon/command mode
+===========--------------------------------------------------------------------------------------------------------
 :q -> quit
 :wq -> save the file
 :q! -> dont save any changes, force quit
@@ -67,9 +67,13 @@ colon mode
 :<line-number>s/<word-to-find>/replace-word -> replaces first occurence
 :<line-number>s/<word-to-find>/replace-word/g -> all occurences
 :%s/<word-to-find>/replace-word/g -> all occurences in all lines
+:3s/sbin/SBIN --> in 3rd line first occurence of sbin will be replaced with SBIN
+:3s/sbin/SBIN/g --> all occurence in that line
+:%s/sbin/SBIN/g --> all occurences in the file
 
 
-
+---------------------------------------------------------------------------------------------------------------------------------------
+Linux Administration
 
 
 User Management
@@ -90,22 +94,25 @@ CRUD
 -> remove user from group
 -> delete user
 
-useradd <user-name>
-id <user-name> ( to check user info)
+=>useradd <user-name>
+=>id <user-name> ( to check user info)
+
 cat /etc/passwd -> all users info
 cat /etc/group -> display all the groups in server
 
-A user in Linux will have only one primary group and atleast one secondary group
 
+A user in Linux will have only one primary group and atleast one secondary group
 when you create user, group also will be created with same name
 
-groupadd devops (Creating group)
+groupadd devops (Creating group devops)
 
 usermod -g <group-name> <user-name>
 usermod -g devops ramesh  (Primary group/adds both)
 usermod -aG testing ramesh  (Secondary group)
 
 passwd ramesh -> set the password
+
+------------------------------------------------------------------------
 
 by default only key-based authentications are enabled
 

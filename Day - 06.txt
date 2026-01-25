@@ -22,15 +22,11 @@ root           8       2  0 May02 ?        00:00:00 [kworker/0:0H-events_highpri
 root          10       2  0 May02 ?        00:00:00 [mm_percpu_wq]
 
 PID and PPID (parent processing ID)
-
 ps -ef | grep <process-name>
 
 foreground and background process
-
-
 sleep 10  (foregrounds which blocks the screen, we cant do anything)
 sleep 10 &  (example runs background)
-
 sleep 100 & ( which runs 100 seconds in the backend)
 & to take process into background
 
@@ -40,28 +36,29 @@ kill -9 PID  (like force kill using -9)
 systemctl status nginx
 ps -ef | grep nginx
 
-we have application running --> PID
 
+we have application running --> PID
 10 users --> 0.1% CPU 0.1% RAM
 2000 users --> 10% CPU, 20% RAM
 10 users 
 
-top (to check whih process is cosuming more)
-
+**********top (to check whih process is cosuming more)
 ***top -p PID --> check the resources used by particular process
-
 get the logs and kill process and restart services
+
+------------------------------------------------------------------------------------------------------------------------------
 
 Network management
 ===========================
 how do you check open ports in linux
 
 netstat -lntp
-
 systemctl status <service-name>
 ps -ef | grep service-name
 netstat -lntp
 top -p PID
+
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 3 tier architecture
 ===========================

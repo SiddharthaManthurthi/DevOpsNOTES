@@ -227,11 +227,38 @@ Monitor---Track performance, errors, and system health.
 Feedback---Collect user and system feedback for improvement.
 
 
-15th JULY -> AWS free tier is different
-6 months -> 100$ credits + 100$ credits
+ENIVIROMENTS
+DEV, QA, SIT, UAT, PERF, PRE-PROD, PROD
+DEV - Devlopment 
+QA- Quality Assurance
+SIT -system intergration testing
+UAT - User Acceptance Testing
 
+==========================================================================================
 
+What is linux ?
 
+linux is kernal
+
+Linux --> from the sratch using C language based on unix principles. He invented git to store this
+
+windows
+-----------
+not open source
+costly
+not secure must install anti virus
+slow
+too many graphics
+frequent restarts
+tough to update/upgrade
+
+Linux --> 9MB
+Secure
+high speed --> mostly text
+no need of restarts
+install or update packages is easy
+free, community support
+low resources
 
 
 

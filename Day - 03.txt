@@ -27,8 +27,21 @@ ls -l -> files listing (**ls -la**-> (Hidden files and folders))
 ssh -i <private-key> user-name@IP
 ssh -i <private-key> ec2-user@98.81.70.98
 
+
+-------------------------------------------------------------------------------
 Linux
 ========
+types od users
+
+$ --> normal user
+# --> root/admin/super user
+/root --> root user home directory
+
+command <options> <inputs>
+commad --help
+commad -h
+
+
 $ -> normal user
 /home/ec2-user -> /home/<user-name>
 
@@ -49,7 +62,14 @@ command-name <inputs> <options>
 uname -> print os/kernel infromation (which type of os/linux print)
 uname --help or man uname (detailed information, man means manual)
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 CRUD -> create read update delete
+
+==>hidden files/folders start with .
+d rwx r-x r-x -> directory
+- rwx r-x r-x -> file
 
 ls -> list subdirectories ( means if we open a folder it will show sub)
 ls -l -> long format alphabetical order.. file/folder who owns it, size, timestamp -Detailed information
@@ -57,33 +77,29 @@ ls -lr -> Reverse alphabetical order
 ls --help -> to know all options for this command
 ls -lt -> latest files on top with time stamp
 ls -ltr -> latest files at bottom
-ls -a -> hidden files
+ls -la -> hidden files
 cd -> to home directory from wherever you are
-
-==>hidden files/folders start with .
-
 ls -lart -> hidden files and folders (Show all files (including hidden ones) in long format, sorted by time, in reverse order — so the oldest files appear at the bottom)
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 touch devops.txt ( this will create devops file with txt format)
-
-d rwx r-x r-x -> directory
-- rwx r-x r-x -> file
-
-**cat > devops.txt -> 'enter the text you want' ->Press Enter and Ctrl+d ( to enter values to the file)
-
+**cat > devops.txt -> 'enter the text you want' ->Press Enter and Ctrl+d ( to enter values to the file devops file)
 **cat filename -> read the content in the file
-
 > -> redirection, usually overrides the previous text ( means if we use single arrow this will delete previous data and enter new data kind of replcement)
 >> -> appends to the previous text ( to add extra/additonal)
 
 
-
+mkdir <name> --> creates directory
+rmdir devops/ (remove the empty directory/folder)
 rm devops.txt ( remove the file)
-rmdir devops/ (remove the empty folder)
 rm -rf (removes recursive) ( rm	remove -r	recursive — deletes directory and its contents -f	force — no confirmation, ignore errors)
 
 source -> which file to copy
 destination -> destination
+
+cp <source> <destination> --> copy files/folders
+mv <source> <destination> --> cut and paste
 
 **cp <source> <destination>  (cp testcopyfile.txt test/  -> means test file will be copied to the test foder) **this is copy command**
 cp
@@ -92,8 +108,13 @@ cp
 mv aws.txt devopss/ (moving aws.txt file to devopss folder)
 $ mv testfilename.text test/testfilenaming.txt ( moving testfilename.text to test folder with renaming)
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 downloading files or softwares
+
+wget <URL> --> downloads the file
+curl <URL> --> shows on the screen
+
 
 **wget and curl  (wget ->downloading from the web/wget is used for downloading packages)
 
@@ -116,16 +137,12 @@ display line number ending with the word architecture
 $ -> ending charecter  ($ )grep 'architecture$' user session-02.txt)
 ^ -> starting charecter ($ grep '^ssh' user session-02.txt)
 
-ctrl + r start typing you can see the commands you used
-
-$ -> ending 
-^ -> starting
 
 head -> top 10 lines by default ($ head session-02.txt)  (head -n 6 session-02.txt ==>top 6)
 tail -> bottom 10 lines by default ($ tail session-02.txt)( $ tail -n 6 session-02.txt ==> bottm 6)
 
 Example
-===
+-----
 5-15
 head -n 15 files =top 15
 tail -n 10 file
@@ -263,8 +280,3 @@ ec2-user 1000
 
 
 *** need to some testing again on linux***
-
-Tomorrow's session
-==================
-vim editor
-user management

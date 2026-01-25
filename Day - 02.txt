@@ -1,4 +1,5 @@
 Computer
+
 Client server architecture
 Authentication mechanisms
 Firewall
@@ -36,52 +37,67 @@ opensource
 
 hardware and software are tightly coupledn(MAC,UNIX)
 
-Authentication mechanisms
-========================
-1. what you can remember
-2. RSA Tokens, OTP, Authenticators -> What you have
-3. What you are -> fingerprints, retina, palm, etc...
 
-Public Key and Private Key Mechanism
-=================================
-SSH Keys
-box == server == node
+Client Server architecture
+===============================
 
-ssh-keygen -f daws-88s
+Networking between computers
 
--> public key
--> private key
+1. Network
+2. Facebook application
 
-ssh-keygen -f daws-88s
--> private key
+serve --> lawyer serves to us, we are his client
 
-Firewall
-==========
+facebook is in Linux server, if problem comes we need to login to server..
+
+https://www.joindevops.com
+
+Protocol: https
+Port: 443
+IP: DNS IP
+Username and password --> authentication
+
+SSH --> Secure shell
+Port: 22
+IP, Username and password/private-key
+
+Firewall --> checks inbound and outbound traffic
+
+inbound --> incoming traffic --> port number 22, 103.149.59.114
+outbound --> outgoing traffic
+
 incoming traffic -> inbound -> don't trust anyone
 outgoing traffic -> outbound -> allow everyone to exit
 
 NASA, DRDO -> check outbound traffic too
 
-AWS accounts
-=============
-1. credit/debit cards
-2. international transactions enable
-3. same address as in bank
-4. PAN card mandatory
-5. try to use same first name and lastname
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-6months -> 100$, 100$
-18000 INR
+authentication
+==================
+1. what you know --> username password
+2. what you have --> keys, tokens, authentication, rsa token
+3. what you are --> fingerprint, retina, palm, face
 
-Auto-pay enable by default, disable it in UPI
+Server == box == node
 
-Regions and Zones
-=================
-Hyderabad -> Zones east, west, north and south -> atleast 2 
+lock = public
+key = private
 
-Regions and Availability Zones(AZ)
+key pairs --> public key and private key
 
-us-east-1 -> N.Virgina
+
+1. create key pair
+2. create firewall
+3. import public key to aws account
+4. create server and attach public key
+5. attach firewall to server
+
+Git Bash --> Mini Linux in windows
+SSH client
+
+browser --> http/https client
+Linux Server --> SSH Server
 
 192.165.89.1 (EXAMPLE IP)
 0.0.0.0/0 -> every IP in the internet
@@ -122,14 +138,7 @@ ec2-user
 
 ssh -i daws-88s ec2-user@54.80.53.154
 
-AWS account creation
-client server architecture
-ssh keys create
-firewall create
-ec2 instance launch
-connect
-
-Next topic
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ===========
 Linux commands
 
@@ -161,3 +170,21 @@ command <options> <inputs>
 cd --> change directory
 
 cd .. --> one step back
+
+------------------------------------------------------------
+
+Typical real-world setup:
+
+Your laptop → Windows
+
+Your server → Linux (Ubuntu/Amazon Linux)
+
+You connect using → SSH
+
+Using a tool like:
+
+PuTTY
+
+MobaXterm
+
+Git Bash

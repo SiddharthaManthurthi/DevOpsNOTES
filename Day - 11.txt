@@ -108,5 +108,8 @@ journalcl -u catalogue -f ----dynamic following logs (Catalogs server)
 => curl http://localhost:8080/healh ( this is also way to check it is running)
 =>sytemctcl status
 =>ps -ef | grep node 
-=>netstat -lntp
+=>netstat -lntp (netstat -lntp -> check port is running or not and accessible to internet (l for listing n number t for transfer procol  p for program))
 =>nslookup mongodb.siddharthais.online(verifying dns ip)
+=>sshd -t -> check the syntax of config
+=>top (to check whih process is cosuming more)
+=>top -p PID --> check the resources used by particular process
