@@ -1,0 +1,75 @@
+calling scripts from outside one scripts
+two methods 
+./script.sh------in this way we permissions and pid id both scripts are different
+  and cant access script variables
+source ./script.sh -----in this method it can access  both scripts variables and both scripts pid same
+
+->  $ date "+%Y-%m-%d-%H:%M:%S"
+
+
+Completed shell roboshop using common scripts
+
+---------------------------------------------------------------------------------------------------------------
+error handling
+
+exit 1 ---will exit the script if previous line fails
+set -e --- it will exit if there is any error
+validate --- write function using $?
+
+trap funtion
+set -e 
+failure(){
+echo "Failed at : $1 $2"
+}
+trap 'failure "${LINENO}" "${BASH_COMMAND}"' ERR -----when bash find error in script it search for ERR signal
+by using trap fuction we passing 1 2 arguments to failure funtion to find at which line and which commnd is failing
+
+---------------------------------------------------------------------------------------------------------------------
+How to handle storage issues
+===========================
+
+delete old logs
+backup
+disk utilisation and trigger email
+
+
+1. which directory
+2. is the directory exist?
+3. find the files *.log older than 14 days
+4. remove them
+
+log the script execution
+find . -name "*.log"
+find . -name "*.log" -mtime +14   (to get the logs older than 14days)
+find . -name "*.log" -type f -mtime +14  ( with files)
+
+
+
+how to  delete the logs older than 14 days 
+
+x=(find . -name "*.log" -mtime +14) -----. represent current path
+
+rm -rf $x
+-------------------------------------------------------------------------------
+
+while loop
+
+while [ condition ]
+    do
+	statement
+	expression
+	done 
+while [ a -lt 10 ]
+   do
+   echo $a
+   a = `expr $a+1`
+
+   done   
+	
+while IFS=read -r line -----internal filed separator used to read line by line in a file
+  do
+   echo $line
+  done < filename  (less than is for input/greater than is for output/single file to read one less than and to read varialble  <<< (3 lessthan)
+------------------------------------------------------------------------------------------
+
+crontab) to automatically delete files at scheduled times

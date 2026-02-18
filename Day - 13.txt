@@ -1,0 +1,108 @@
+Linus File Sytem Heirarchy  --( Availble in conepts section in my git)
+===========================
+
+cd / -> root if you give ls -l we can see all the heirarchyies
+
+/bin ->   Essential user binaries/softwares/commands  (ex. which ls,cp ==ls is in bin)
+/boot ->  OS booting process commands or files
+/dev ->   devices ( everything in linux is file including keyboard,mouse,disk,USB etc.)
+/etc ->   extra configuration. (configurations related to sytem or user installed packages are here)
+/home ->  any user related directories are here (/home/<username>)
+/lib ->   all required libraries are here
+/media-> removable disks like USB,DVD,etc are mounted here automatically in desktop environments
+/mnt->   used to mount extra disks in linux server are here for temp purpose
+/opt->   optional ( when you install a software manually you do it here. eg. /opt/roboshop, /opt/tomcat)
+/proc->  processor information (cat /proc/cpuinfo. /proc/meminfo) here info is related to kernal
+/root->  root user home directory
+/run->  running process information
+/sbin-> essential root user binaries/softwares/commands
+/srv->  service ( data related to the system like HTML directory, NFS directory, etc.)
+/swap-> virtual RAM ( swap usage is more means syste, is under stress)
+/sys->  kernal sub systems
+/temp-> temporary directories in linux
+/usr -> user related commands and libs are here
+/var-> variable files, continously growing files are here
+
+------------------------------------------------------------------------------------------------------------------
+Hard Disk VS Network Disk
+=========================
+Hard disk near to computer ( so we create it in the same availabilty as server)
+network disk any where in the internet like google drive, MS drive,S3, etc..
+
+OS,DB always should be in HD, HD latency is less
+normal files and objects are stored in network storages
+
+at a time one HD can be mounted to only one computer
+Nerwork storages can be attached to multiple computers
+
+---------------------------------------------------------------------------------------------------------------------------
+
+How to add extra disk to linux server
+================================================
+1. Create EBS volume
+2. Attach to the instance (EBS Volume shoud in the same as EC2) ->Elastic Block Store->Volume->create->actions->Attch volumes (IT WILL NOT BE AUTOMACTIALLY ATTACHED IN LINUX )
+3. verify if it is attached or not using command lsblk (lsblk -list block devices)
+  a.nvme0n1   --> root disk -->used for OS default purpose
+  b.nvme1n1   --> New disk ( but it is not ready yet) ->database data, imp files and configurations are stored here
+4. create partition from the disk (this will create partition nvme1n1p1   )
+  sudo parted /dev/nvme1n1 --script mklabel gpt mkpart primary 0% 100%
+5. Create a Filesystem (XFS – Best for AWS) (to read zeros and show it to enduser readable format)
+  sudo mkfs.xfs -f /dev/nvme1n1p1
+=>df -hT  (what are mounted and to check storages) it will show types as xfs now
+/var/ib/mqsql -> mysql data is stored here ( this location should be safe and backup)
+/data         -> redis here
+
+6. Create a Mount Directory
+sudo mkdir -p /data (verify cd / -> ls -l you will data created but data from this should go to new disk)
+7. Mount the Disk (Temporary Runtime Mount)
+sudo mount /dev/nvme1n1p1 /data  (this means data will be stored in new disk nvme1n1p1 --> (verify by df -hT) (df -hT | grep data)
+8.Get the Disk UUID (Permanent Identity)
+sudo blkid /dev/nvme1n1p1 (you will get universal id) UUID="5345856e-1088-45b4-830e-8623ed7b2f5d"
+9. Add Persistent Mount Entry (/etc/fstab)
+we need to give the follow entry so that linux mounts -> 5345856e-1088-45b4-830e-8623ed7b2f5d   /data   xfs   defaults,nofail   0   2
+10 Test the Configuration (No Reboot Needed)
+=>sudo mount -a
+If there are no errors, your fstab entry is correct.
+Verify:
+df -hT | grep data
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+How to expand existing Disk
+==========================
+
+=>Select Volume and Edit update the storage size
+df -hT   ->Disk usage information and filters by file sytem type and space stats for everthin mounted -like total,used,free and type
+lsblk    ->lists blocks information like disks and partitions with their sizes and mount points. df check whats full and lsblk see what's there
+=> Extends in desk but not to file system or partion automatically
+growpart /dev/nvme1n1 1  
+xfs_growfs /data
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Memory usage/Management commands
+================================
+df -hT   ->Disk usage information and filters by file sytem type and space stats for everthin mounted -like total,used,free and type( checks directories mounted in hard disk and usage human readable format)
+lsblk    ->lists blocks information like disks and partitions with their sizes and mount points. df check whats full and lsblk see what's there
+free -m  ->Ram usage
+top      -> present processes usage ( to check which program is consuming more like our task manager in windows)
+htop     -> same top but human readable modern,interactive,colorful
+ps aux --sort=-%mem | head -n 11 -> top 10 process by ram usage
+ps aux --sort=-rss | head -n 11  -> Top 10 by memory in MB
+du -sh * -> memory occupied by files and folders (to check deep in particular folder usage  for example cd /home -> cd /var -> du -sh * to check  var folder which is using more)
+
+
+memory troubleshooting
+
+swap --- a memory from HD as virtual RAM( system inactive and tabs ni swap ki pampisthundi system RAM ni free cheyaniki)
+
+space checking
+free -m ---machine readle farmat
+free -h -- human readble
+
+top --- used for memory monitoring
+ps aux --sort -%mem | head -n 5 ------used for chcking top 5 memory consuming files
+ps aux --sort -%cpu | head -n 5 ------used for chcking top 5 cpu consuming files
+
+df -hT --- space of hard disk
+du -sh * ----disk utilisation all file and foldrs of that path
+du -sh / |sort -rh| head -n 20-------- top 20 disk utilisation

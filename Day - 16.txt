@@ -1,0 +1,162 @@
+$0
+$$
+$!
+$@
+$*
+$?
+
+Best practice is writing code with less sentences
+-> if values is repetative we use variables
+-if code is repetative we use it functions
+
+functions/methods
+===================
+functions are intended to complete specific task, it takes input and does the job  ( goint to market to bring somthing is function and what to bring is input)
+
+FUNC_NAME(){
+	$1, $2
+	code
+}
+
+FUNC_NAME parameter-1 parameter-2
+
+By default shell wit not excute, only excuted when called
+
+Example function name is VALIDATE () {
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+redirections ( for logs)
+=============
+ls -l > output.txt
+1 -> success (codes)
+2 -> failure (codes)
+
+
+output of file execution is redirect avthundhi > esthe oka log file name evveali 
+eg ls -l >output.log
+   ls -l 1>output.log 1 esthe sucess avthene store avthundhi
+   ls -l 2>output.log 2 esthe fail aiena kuda store avthundhi
+& esthe rendu store avthai and >> esthe append avthundhi log file (not overiding)
+
+sudo mkdir /var/log/shell-script   --> (creating this folder for storing logs)
+
+if you are using same sudo mkdir -p /var/log/shell-script -->  -p esthe directory already unte overide cheyadhu lekaothe create chesthundhi
+
+tee is used to used store log after diplying logs on screen
+eg
+ls -l | tee output.txt ( this will display hidden files on the screen and stores them same logs in output file)
+
+| tee -a $LOGS_FILE   (a for appending)
+echo "script starting at $(date)" | tee -a $logfile
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+loops
+=======
+(without loop if we need to print 1 to 2 we should write  echo 1 echo 2 likewise till echo 10)
+
+
+for (int i=0;i<10;i++){
+	print i;
+}
+
+Simple shell for loop ( do for excuting and done for quitting)
+
+for i in {1..100}
+do
+ echo $i
+done
+
+---------------------------------------------------------------------------------
+
+Colors
+======
+
+echo -e (-e enabling the colors)
+
+echo -e "\e[<code>m hello colors
+
+R="\e[31m" ---red colors
+G="\e[32m" ---Green color
+Y="\e[33m" ---Yellow color
+N="\e[0m"  ----White color/default
+
+
+example -- echo -e "\e[31m Hello World"  ( this will give hello world in red color)
+
+----------------------------------------------------------------------------------------------------------------
+
+error handling
+==============
+set -e  --> this will be checking for errors, if error it will exit
+ 
+trap 'command(s)_to_run' ERR
+
+-------------------------------------------------------------------------------------------------
+
+AWS CLI
+====================
+
+We connected to aws from console/ AWS UI prevoulsy
+
+
+Different ways to connect to aws account
+
+CLI /mostly linux/command prompt(commnand line interface)    -------> API  -----> AWS ACCOUNT
+
+Console (    AWS Portal)                                   --------> API    -----> AWS ACCOUNT
+
+Python/java/.net        ---->SDK  (like dependencies library)-------> API   -----> AWS ACCOUNT
+
+Terraform                                                 --------> API    -----> AWS ACCOUNT
+
+
+SDK -> Software Development Kit
+
+aws cli ---- commnand line interface 
+
+authorization ---check the access
+authentication ---prove yourself
+
+creation of instance through aws cli
+iam == INDENTITY MANAGEMENT ACCESS
+
+first aws ki through cli connect avvalante oka iam user ni create cheyali and dani access key and secretkey kavali
+
+aws configure --- command used to conncet throgh cli
+
+aws s3 ls ----use to check whether we are connected are not 
+
+
+for creating Instance we need 
+
+1.AMI ID
+2.SG ID
+3.subnet id
+
+aws ec2 run-instances --image-id ami-09c813fb71547fc4f \
+--instance-type t2.micro --security-group-ids sg-0a7153f8526f29a8e \
+--tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=test}]" \
+--query "Instances[0].PrivateIpAddress" --output text
+
+---------------------------------------------------------------------------------------------------------------
+Useful less shortcuts (very important)
+
+Inside less:
+
+Key	Action
+Space	next page
+b	previous page
+↑ ↓	line by line
+/word	search
+n	next match
+N	previous match
+g	go to top
+G	go to bottom
+q	quit
+🔹 less vs cat
+cat	less
+Dumps entire file	Page-by-page
+Bad for big files	Best for big files
+No search	Search available

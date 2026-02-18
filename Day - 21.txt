@@ -1,0 +1,151 @@
+[ ec2-user@ip-172-31-39-13 ~ ]$ echo  $PATH
+/home/ec2-user/.local/bin
+:/home/ec2-user/bin
+:/usr/local/bin
+:/usr/bin
+:/usr/local/sbin
+:/usr/sbin
+=============================================================================================================
+for given command linux search in above paths
+:/usr/bin
+:/bin
+in crontab it will search in only above paths
+
+NOTE: what ever file we move to those paths it will work as in built command
+=============================================================================================================
+disk.usage shell-script to send mail
+
+to send in proper format we can use html format can be converted using - https://text-html.com/
+to check ec2 metadata - curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/
+
+
+
+{
+echo "To: manthurthisiddhartha@gmail.com"
+echo "Subject: $SUBJECT"
+echo "Content-Type: text/html"
+echo ""
+echo "testing mail from last working session"
+} | msmtp "manthurthisiddhartha@gmail.com"
+
+
+mail 
+
+Hi DevOps Team,
+
+There is an  issue of Disk_Utilisation type in the server. Please find the details below.
+
+ServerIP:
+
+Message :
+
+Regards,
+
+Monitoring Team
+
+==============================================================================
+Shell Scripting Disadvantages
+==============================
+
+1. no idempotency
+2. No error handling
+3. Little complex
+4. Large scale servers handling is tough
+5. Distribution specific, homogenous
+
+
+How to connect from one server to another
+===================
+
+ssh ec2-user@<private ip of other server>  --> remote login
+
+How to copy files from one server to another server
+
+scp --> source copy
+scp mongodb.sh mongo.repo ec2-user@172.31.22.9:/tmp
+
+How to excute script from one server to another
+
+ssh ec2-user@172.31.22.9 'cd /tmp && sudo mongodb.sh
+
+
+1. copy mongo repo, mongodb.sh
+2. execute them
+---------------------------------------------------------------------------------------------------------
+Ansible a configuration managment tool
+
+Configuration management
+======================
+provisioning server -> baseline it according to our needs
+
+1. Installing programming language
+2. Creating system users and folders
+3. Installing some system packages
+4. Downloading code
+5. Installing dependencies
+6. Creating systemctl services
+7. Enable and starting the services
+
+
+Push vs Pull
+============
+HYD -> Delhi
+
+1. Person in Delhi go to DTDC office everyday and check for letter ->Pull
+2. Person stays home, DTDC delivers letter whenever it arrive  -> Push
+
+Control tower is called where the ansible is installed
+
+to establish connection to servers:
+
+protocol
+port
+username
+password
+IP
+
+simple command how to connect:- (i for Inventory/list of servers,e for extra arguments, m for module, a for arguments, b for become user)
+
+ansible all -i 172.31.22.9, -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ping
+
+ansible all -i 172.31.22.9, -e ansible_user=ec2-user -e ansible_password=DevOps321 -b -m ping -m dnf -a "name=nginx state=installed"
+
+ansible all -i 172.31.22.9, -e ansible_user=ec2-user -e ansible_password=DevOps321 -b -m service -a "name=nginx state=started"
+
+
+Linux commands == Ansible modules/collections
+
+Linux Server STATE-1 -> STATE change STATE-2
+
+linux commands in a file == shell scripting
+ansible commands in a file ==playbook -> use YAML language
+
+YAML -> Yet another markup language
+
+DTO -> data transfer objects
+============================
+
+name -> sivakumar
+acc no
+amount
+date
+branch
+denomination
+
+forms and templates
+
+Markup languages
+================
+HTML, XML
+
+<Register>
+	<Name>Sivakumar</Name>
+	<Mobile>12345678</Mobile>
+	<Email>info@joindevops.com</Email>
+</Register>
+
+JSON
+
+YAML
+
+

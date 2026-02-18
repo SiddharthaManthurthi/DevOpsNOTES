@@ -1,0 +1,171 @@
+inode symlink hardlink
+
+
+inode
+======
+
+its a memery location of the file which stores the metadata of the file
+
+metadata;
+file permissions
+ownership
+size
+original memory adress location of the file
+
+ls -i <filename> ---->for checking the inode 
+stat <fiename>------> for checking metadata of the file
+
+inode does not store actual file content
+
+----------------------------------------------------------------------------------------------------------------------
+
+syslink/symlink/short/softlink
+================================
+
+
+symlink == shortlink == softlink -> is shortcut(is also a file pointing real file) --> points to other real file
+1. short cut to the file/folder
+2. inode number is different for symlink
+3. if actual file is removed, then symlink will break
+4. uses for backward compatability, switching versions and rollback is easy
+5. You can create symlink for folders and files also
+6. You can create symlink across different filesystem
+
+YUM -> Before RHEL-8 YUM is the package manager (example ln -s dnf3 dnf => means even if we excute for dnf it will excuted for dnf3)->ln -sfn dnf-4 dnf (if the new versions comes we can force give to dnf)
+RHEL-8 DNF is the package manager
+
+ln -s <originalfile name> <shortcutfilename>
+
+find / -name "*.conf"------> used for finding files with similar names
+
+find / -inum <inodenum>-----> check the file with given inode num
+
+syslink/symlink are used to point diff versions
+
+lrwxrwxrwx  (l will be displayed means symoblic)
+App = app-3 -> app-4 ( we can give shortcut linkings)
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Hardlink
+=========
+Hard link
+
+Hardlinks are created and used for backup
+
+hardlinks have same inode
+
+ln <originalfile name> <shortcutfilename>
+
+it can not be created to folders
+
+1. You can't create hardlink in another filesystem
+2. Hardlink is same as original file but can be different name
+3. hardlink inode numbers are same
+4. they points to same memory location, so memory is not wasted
+5. you can't create hardlink to folders
+6. hardlinks are used for backup.
+7. when all links are deleted, then only file will be deleted.
+
+using inode number and find command within the same FS
+
+find / -inum 1234  (to see how many are there with inode number)
+
+-----------------------------------------------------------------------------------------
+
+disadvatages in manual deploymentss
+===================================
+
+1. time taking
+2. human errors
+3. everytime from the scratch
+4. can't rely
+5. if scale is increased manual way is not possible
+------------------------------------------------------------------------------------------------------------------------------
+
+scripting
+===========
+commands in a file and run it called scripting
+
+if I run a command --> I have common sense, I can understand whether it is success or not...
+
+variables
+data types
+functions
+conditions
+loops
+error handling
+
+90% design + 10% coding
+
+Coding
+1. programming --> developers. data strcuture, alogorithms, design patterns
+				   less resources(RAM, CPU, HD), less time
+2. scripting --> DevOps. simple scripting
+
+shell vs python
+===============
+UI --> Shell/CMD --> Kernel
+UI --> Python --> Shell/CMD --> Kernel
+
+shell is native in Linux. If you want any automation inside linux server, shell is the perfect choice.
+python is useful when you are interacting with other/external systems.
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+where to store scripts?
+===========
+git -> vcs
+
+1. version control
+2. who did the changes, when did the changes
+3. you can track who did the changes
+4. restoring is easy
+5. review is also easy -> Pull Requests
+6. secure place to store the code
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Centralised vs Distributed
+====================
+google drive --> 10 members
+open google docs in browser, do the change
+
+donwload the doc in local laptop, open in word do the changes then upload to drive
+
+centralized tho problem nti ante incase of data loss recocovery is difficult 
+in case of distributed system even one sysstem is working fine can retrive data easily
+
+SVN vs Git(GitHub, Gitlab, Bitbucket, etc.)
+
+IDE(Integrated development env) --> vscode, eclipse, intellij, sublime, etc.
+
+1. create repo in github
+2. clone/download the repo ($ git clone https://github.com/SiddharthaManthurthi/shell-practice.git) (now add this folder to the vs code for repos it will show main..if there is.git it is git repo if not normal folder) 
+3. add to staging/temp area. (git add 01-hello-worl.sh )(git status to check green color means staging area)
+4. commit   (git commit -m "Hello World Completed"
+5. push changes (git push origin main)
+to add it to the linx -- we need to clone it for first time (git clone https://github.com/SiddharthaManthurthi/shell-practice.git and for the next we can git pull) cd shell-practice/ ->sh 01-hello-world.sh (use sh in the file for running it)
+
+git add . ; git commit -m "message"; git push origin main
+. means all 
+
+git add <file-name>
+
+git config --global user.email ""
+git config --global user.name " "
+
+
+Workspace -> temp area -> local repo  -> remote
+vs code        add         commit    push
+
+------------Local--------------------- ->remote
+---------------------------------------------------------------------------------------------------
+shell scripting
+================
+#!/bin/bash -> shebang
+
+shell scripting
+sh <script-name>
+
+#!/bin/bash --> shebang, it should be the first line in shell script, it is the interpeter to check the syntax and execute the commands..

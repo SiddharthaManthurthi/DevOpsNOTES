@@ -9,6 +9,7 @@
 **clear 
 **history
 **ctrl + r start typing you can see the commands you used
+df -hT  (to check storages)
 
 
 absolute path(Full path giving to refer)

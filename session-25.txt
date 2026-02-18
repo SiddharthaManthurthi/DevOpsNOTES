@@ -1,0 +1,99 @@
+==>to connect python with aws api in ansible we need to install -->>pip3.9 install boto3 botocore
+
+
+action = create
+passing the instances names in list
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+roboshop.yaml
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+-e action=destroy roboshop.yaml
+
+#ansible-playbook -i inventory.ini -e action=destroy roboshop.yaml
+
+
+1. create instances, loop instance names. item is the keyword
+	register the output in variable -> ec2_output
+	
+	ec2_output.results -> output as list
+	
+2. loop ec2_output.results list of map
+	item -> first map
+	
+	{{ item.item }} => name
+	{{ item.instances[0].private_ip_address }}
+	
+	frontend-dev.daws88s.online -> private_ip_address
+	
+	roboshop-dev.daws88s.online -> public_ip_address
+	loop: ec2_output.results
+	when: 
+	- item.item == "frontend"
+	- action == "create"
+	
+=====================================================
+A list is an ordered collection of values.
+
+It is like an array.	
+	Example:
+instances:
+  - mongodb
+  - catalogue
+  - redis
+This is a list of strings.
+
+Same in inline format:
+
+instances: ["mongodb", "catalogue", "redis"]
+How you use it:
+loop: "{{ instances }}"
+
+-------------------------------------------
+
+A map is a collection of key-value pairs.
+
+It is like a dictionary in Python.
+	
+Example:
+person:
+  name: Siddhartha
+  role: DevOps
+  experience: 4	
+  
+  This is a map.
+
+Inline format:
+
+person: { name: Siddhartha, role: DevOps, experience: 4 }
+
+
+============================================
+
+	Extra notes
+	
+	🔹 ansible.builtin.command
+✅ What it does
+
+Runs a command directly
+❌ Does NOT use a shell
+❌ No pipes
+❌ No redirection
+❌ No variables like $HOME
+❌ No < > | & ;
+
+
+ansible.builtin.shell
+✅ What it does
+
+Runs command inside a shell (/bin/sh)
+
+That means you CAN use:
+
+✔ pipes |
+✔ redirection < >
+✔ logical operators &&
+✔ environment variables $VAR
+✔ wildcards *

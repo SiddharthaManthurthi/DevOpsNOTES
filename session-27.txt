@@ -1,0 +1,92 @@
+#for creating all instances
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+roboshop.yaml
+
+#for  deleting all instances
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+-e action=destroy roboshop.yaml
+
+
+===================================================================================================================
+
+code and configuration
+1. not confidential -> URL, variables
+2. confidential -> username, passwords
+
+mongodb-dev.daws88s.online
+
+DRY ( dont repeat yourself) should code be reusable - if we had to create hundred components)
+
+Ansible Roles
+===============
+Ansible role is proper directory structure of creating, managing and reusing playbooks. we can breakdown playbooks into multiple components like tasks, handlers, vars, meta, templates, files, etc. by default ansible loads main.yaml in these directories
+
+
+Role = organized playbook structure
+
+Instead of writing everything in one big YAML file, roles split it properly.
+
+meta= dependencies
+taks=tasks
+templates=jinja2 files
+vars= required variables
+
+
+ansible configuration
+================
+1. ANSIBLE_CONFIG
+2. PWD ansible.cfg
+3. usere home directory .ansible.cfg
+4. /etc/ansible/ansible.cfg
+
+example to setansible from where to load and unset
+
+export ANSIBLE_CONFIG=/home/ec2-user/test/ansible.cfg
+unset ANSIBLE_CONFIG
+ansible --version --? verify here
+
+-> most convenient way is keeping cfg file in the present working directory so we can give different config settings for each repo
+
+/home/ec2-user/ansible-roboshop-roles/roles/mongodb/files/mongo.repo
+/home/ec2-user/ansible-roboshop-roles/roles/mongodb/mongo.repo
+/home/ec2-user/ansible-roboshop-roles/roles/mongodb/tasks/files/mongo.repo
+/home/ec2-user/ansible-roboshop-roles/roles/mongodb/tasks/mongo.repo
+/home/ec2-user/ansible-roboshop-roles/files/mongo.repo
+/home/ec2-user/ansible-roboshop-roles/mongo.repo
+
+nodejs_setup -> enable install nodejs install dependencies
+app_setup -> create directory, create system user, download code, unarchieve code
+system_setup
+
+
+1. load catalogue role
+2. ansible finds meta directory and main.yaml
+3. it depends on common role
+4. ansible executes main.yaml in common/tasks folder
+5. now ansible starts executing catalogue/tasks/main.yaml
+6. we extracted common code into common/app-setup.yaml
+7. ansible imports this into catalogue/tasks/main
+
+
+============================================================
+simple error here i came--
+
+Okay 👀 I can already see the problem from your folder structure screenshot.
+
+Inside roles/catalogue/ you have:
+
+meta/
+task/   ❌
+main.yaml
+
+
+That folder name is wrong.
+
+Ansible expects:
+
+tasks/   ✅ (must be plural)
+

@@ -1,0 +1,212 @@
+1. Create repo either in organisation or directly
+2. Clone repo in laptop
+3. write something
+4. git add ., git add <file-name>
+5. git commit -m "message"
+6. git push origin main
+7. git clone url
+7. git pull
+
+git config --global user.name
+git config --global user.email
+
+---------------------------------------------------------------------------------------------------------
+
+Shell Scripting
+===============
+commands in a file and run it called scripting
+
+if I run a command --> I have common sense, I can understand whether it is success or not...
+shell is native in Linux. If you want any automation inside linux server, shell is the perfect choice.
+python is useful when you are interacting with other/external systems.
+
+write only in laptops
+don't write in linux servers
+only pull linux
+
+95% thinking+design 5% coding
+
+pseudo code -> no syntax, just assumption
+
+if today is sunday, enjoy the holiday otherwise go to school
+
+today=wednesday
+if(today != sunday){                         (! means not equal to and { this for expression)
+	print ("goto school")
+}
+else{
+	print("take holiday, enjoy")
+}
+
+15
+
+15/2 -> 1
+if reminder is 0 -> even
+otherwise odd
+
+number=15
+reminder=15%2
+reminder=1
+
+if(reminder == 0){
+	print("even number")
+}
+else{
+	print("odd number")
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+variables
+data types
+conditions
+functions
+loops
+error handling
+
+
+let x=1, y=0  ( Variables -->variables are like containers that holds something)
+
+derive the formula
+
+submit finally
+
+DRY -> Dont repeat yourself (change in one place reflect everywhere you refer,easy to maintain,readable)
+
+PERSON1=Suresh   (if we want to change name we can just update here example instead of ramesh we can add trump it will automatically adds this updated names in the conversation)
+PERSON2=Ramesh
+
+$VAR_NAME    --- ways to refer using the variable $ for denoting it as variable
+${VAR_NAME}  --- ways to refer using flower brackets the variable ( If there is conversation between suresh and ramesh based on the variable reference it will dynamically take person names)
+
+
+Special variables in shell
+============================
+
+we no need to define the variable, shell will provide to us  ( we can also run shell with the names called arguments)
+
+Person1=$1
+Person2=$2
+
+sh 03-conversation.sh Suresh Ramesh ( the script will run with given names suresh and ramesh as 1 and 2)
+args == parameters
+
+$1=Suresh  ( $ is for special variable)
+$2=Ramesh
+
+
+$    --> for denoting it as variable
+read -->for reading and assigning it in the terminal
+read -s --> to not show what entering
+
+I want a command to be executed and take the output into variable, how to do that?
+
+VAR_NAME=$(command)  ->  (TIME_STAMP=$(date)it will give the ouput in the command when runned)
+date+%s (for date in seconds)
+(()) --> one for mathematical and another for command excution
+
+
+Special variables means shell only creates them
+=================
+$1 $2 ... $N args passed to script
+All variables passed to script: $@
+Number of variables passed to script: $#
+Script name: $0
+Present which directory you are in: $PWD
+Who is running this script: $USER
+Home direcory of the user: $Home
+PID of the script: $$
+sleep 100 & -- to go background
+Background process id: $!
+Exit status of previous command: $?
+
+$@ vs $*
+=========
+$@ treats args seperately
+$* treats as single args
+
+---------------------------------------------------------------------------------
+
+data types
+==============
+variables are holding data..
+
+mobile number -> numbers
+	integers -> -33,768 -> 33,768
+	float -> 45.90
+	decimanl -> long number
+	complex -> 4+8i
+names -> string
+major? -> yes or no boolean
+skills -> devops aws docker kubernetes -> list of skills
+skills -> map or dictionary
+	devops: 4 -> key -> value
+	docker: 3
+	kubernetes: 2
+	
+areane4 -> 5
+speed round up -> 8.2km/sec -> 8km/sec
+copied code
+
+integer speed=8km/sec
+integer speed=8.2km/sec
+
+number
+string
+
+everything is string in shell
+
+position/index in coding starts from 0
+
+conditions
+==========
+
+if or when
+
+if [ expression ]; then
+	code here
+fi
+
+if [ expression ]; then
+	code here
+elif [ expression ]; then
+	code here
+else
+	code here
+fi
+
+
+-gt --> greater than
+-lt --> less than
+-eq --> equal
+-ne --> not equal
+
+Dollar $ Why no $NUMBER here?
+
+Left side → creating / assigning a variable
+
+Right side → reading a value
+
+$NUMBER=$1   # ❌ invalid
+NUMBER=$1    # ✔️ create variable
+
+
+EXIT code
+==========
+0-127
+
+----$?  exit status of previous
+0 means success
+1-127 failure
+
+nginx
+
+dnf install nginx -y
+
+if root user then success
+otherwise failure
+
+id -u (for getting id of the user)
+
+root user id -> 0
+other users -> greater than 0

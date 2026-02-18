@@ -1,0 +1,91 @@
+lini commands = ansible task, module,collection are same
+ansible.builtin means official commands/mod
+
+adhoc commands and playbooks
+adhoc commands are used for command line for one time work or emergency works
+ansible all -i 172.31.33.50, -e  ansible_user=ec2-user -e ansible_password=DevOps321 -b -m  dnf -a "name=nginx state=installed"
+
+playbooks are used for exicucing list of commands at once
+===============================================================================
+1.variables in ansible
+ diffrent ways to define variables
+ 1. from args   ( you dont need to give values in the code we can give while excuting it)
+ 2. from global variables 
+ 3. local variables
+ 4. from files
+ 5. from prompts
+ 6. from inventory
+Preference order
+# 1. command line or args
+# 2. local/task
+# 3. File
+# 4. prompt
+# 5. global/play
+# 6. inventory 
+===============================================================================
+2.datatypes
+==============
+int, float, double, decimal, long, char, string, boolean, list, map, etc.
+
+==============================================================================
+3.conditions ( used to if task should run or not) 
+
+when
+
+tasks:
+  - name: print if the number is less than or equal to 100
+    when: NUMBER < 100
+    ansible.builtin.debug:
+      msg: "Given number {{ NUMBER }} is less than or equal to 100"
+    
+
+  - name: print if the number is greater than 100
+    when: NUMBER > 100
+    ansible.builtin.debug:
+    
+     msg: "Given number {{ NUMBER }} is greater than 100"
+	 
+=========================================================================
+
+Functions== will do specific tasks by taking inputs
+
+we use filters in ansible
+
+we cannot write functions by defualts if need to write in python code but that wont be required
+
+filters
+========
+VAR_NAME | FILTER_NAME
+
+==================================================================
+
+ansible.builtin.command vs ansible.builtin.shell
+
+command
+=======
+simple commands you can execute
+you can't get complete shell env of the remote server. more secure
+> , | will not work here
+
+shell
+======
+you will get the entire environment of the server...
+less secure
+> | works here
+
+ssh ec2-user@IP 'echo "Hello" > /tmp/hello.txt'
+
+filters
+========
+VAR_NAME | FILTER_NAME
+
+convert yaml to json
+====================
+1. take yaml into one variable  ( bcz we we write filters to variables)
+2. then convert to json
+
+
+
+SILLYT ERROR EXAMPLE: RESEREVED KEY WORDS IN PLAYBOOK  tags -> taglist
+
+

@@ -1,0 +1,76 @@
+
+Ansible is popular a configuration managment tool that follws push based architechture
+
+Ansible = run the same command on many servers from one machine
+An inventory is just a list of servers Ansible can talk to.
+Without inventory → Ansible has no idea where to connect
+
+Configuration Management Tools --> ansible, chef, rundeck, puppet, etc...
+ansible Control tower/server is called where the ansible is installed
+
+
+
+
+XML WRITING
+------------
+single line is called field e.g name
+multiple lines is called object e.g address
+
+JSON
+----
+Object starts with flower brackets {}
+List starts with []
+For number quotes not required
+string ["", "", ""]
+
+YAML
+===
+starts with - (hyphen)
+list also starts with - (hyphen)
+Space important
+if there is a space give quotations
+
+PLAYBOOK
+=======
+ansible running a single Linux command
+ansible-playbook running a shell script
+
+i= Inventory -? what are the servers ansible can connect to
+
+group of servers
+
+[frontend]
+
+192.78.98.45
+192.78.98.46
+192.78.98.47
+
+[backend]
+
+192.78.98.45
+192.78.98.46
+192.78.98.47
+
+xample
+frontend1  -> ungrouped
+frontend2  -> ungrouped
+
+[backend]
+backend1   --> Backend group
+
+---
+ansible <WHO> -i <WHERE> <WHAT>
+
+Part	   Meaning
+WHO	       Which servers (group / host / all)
+WHERE	   Inventory file
+WHAT	   Module or option
+
+
+inventory
+=========
+what are the servers ansible can connect to
+
+ansible is in python
+
+we give inputs in playbook, ansible runs inside python connect to the systems using API

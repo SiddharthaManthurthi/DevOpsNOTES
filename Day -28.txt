@@ -1,0 +1,93 @@
+aws configure
+install ansible
+install dependencies - pip3.9 install boto3 botocore
+
+create servers from ansible roboshop repo>>
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+roboshop.yaml
+
+switchted to roboshop-anisble-roles>>>
+
+ansible-playbook -e component=mongodb roboshop.yaml
+
+=========================================================
+
+nohup command takes it to the background
+
+nohup ansible-playbook -e component=catalogue roboshop.yaml &
+
+nohup: ignoring input and appending output to 'nohup.out'  by default it goint to the file.
+
+we can check the logs >> tail -f nohup.out
+-----------------------------------------------------------------------------------------------
+
+redirecting logs to ansible.log file from the backend
+
+nohup ansible-playbook -e component=catalogue roboshop.yaml &>/var/log/ansible.log &
+
+tail -f /var/log/ansible.log
+
+-------------------------------------------------------------------------------------
+ gives huge logs'
+ 
+ v = verbose
+More v = more detailed output
+ 
+ansible-playbook -vv -e component=mongodb roboshop.yaml
+
+we can also add one more v -> vvv gives shell commands also
+
+
+#curl http://user-dev.siddharthais.online:8080/health
+       #telnet user-dev.siddharthais.online 8080
+	   telnet mysql-dev.siddharthais.online 3306
+	   telnet redis-dev.siddharthais.online 6379
+	   telnet rabbitmq-dev.siddharthais.online 5672
+
+	   
+	   
+	   sudo chmod -R 777 log/
+
+	   
+handlers
+=======
+
+handlers are notifiers, you can call task -b when task -a changes. for example when a changes you can restart the aplication using handlers
+
+
+Tags
+=====
+if you want to run specific tag inside a playbook, tag it and call it
+
+Deployment
+=========
+1. remove old code
+2. copy new code
+3. install dependencies
+4. restart the server
+
+
+-t deployment= to run only which is tagged to deployment
+
+ansible-playbook -e component=catalogue -t deployment roboshop.yaml
+
+include role vs import role
+====================
+it is way of calling other roles.
+
+import role -> respects the tags. if you apply tags to import_role those will be automatically applied to all the tasks inside that role
+
+include role -> it does not respect the tags
+
+
+
+
+silly error
+----------
+
+gave name template instead of templates
+
+
+

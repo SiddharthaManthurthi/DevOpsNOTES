@@ -1,0 +1,61 @@
+Crontab
+========
+scheduler in linux server, we can schedule the scripts to run periodically
+
+crontab -e   -> (e for editing)
+
+Syntax
+* * * * * ----- minute (0-59)    hour (0-23)   day (1-31)  month of year (1-12)  weekday (0-6) ( with space after each star)
+crontab -l   -> (l for listing)
+sudo tail -f /var/log/cron  --> (means “watch cron job logs live, with root permission.)
+
+less = read existing content
+tail -f = watch new content as it arrives
+
+
+
+cp source_dir dest_dir
+backup source_dir dest_dir 20
+
+1. user should pass source_dir dest_dir, default is 14 days, but user can override
+2. verify the directories exist and root user too
+3. find the files
+4. archieve them and place into dest_dir
+5. check archieve is success or not
+6. if success you can delete from source_dir
+
+--------------------------------------------------------
+
+appy key password - oiqsgigqkrwirpsx
+
+
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-bundle.crt
+logfile        /var/log/msmtp.log
+
+account        gmail
+host           smtp.gmail.com
+port           587
+from           siddharthamanthurthi@gmail.com
+user           siddharthamanthurthi@gmail.com
+password       udvxeilgkoufsbbt
+
+account default : gmail
+
+{
+echo "To: manthurthisiddhartha@gmail.com"
+echo "Subject: Shell script test"
+echo "Content-Type: text/html"
+echo ""
+echo "test from shell"
+} | msmtp "manthurthisiddhartha@gmail.com"
+
+---------------------------------------------------------------------------------
+
+disk utilsation, trigger email if du is more than 70
+
+df -hT | grep -v Filesystem     ( use v if you dont want any header like filesystem)
+df -hT | grep -v Filesystem |awk '{print $6}'    -> ( to print only use columns)
+df -hT | grep -v Filesystem |awk '{print $6}' | cut -d "%" -f1   ( cutting without percentage symbol)

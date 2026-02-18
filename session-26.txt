@@ -1,0 +1,38 @@
+pip3.9 install boto3 botocore
+
+example;:
+
+for creating all instances
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+roboshop.yaml
+
+for  deleting all instances
+
+ansible-playbook -i localhost, \
+-e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \
+-e action=destroy roboshop.yaml
+
+
+#this is example of creating duplicate servers with from each server bcz we set hosts all so it will take all server from the inventory file
+-ansible-playbook -i inventory.ini -e "instances=['mongodb'. 'catalogue', 'redis', 'user', 'cart', 'mysql', 'shipping', 'rabbitmq', 'payment', 'frontend']" roboshop.yaml
+
+
+starting all components
+
+#ansible-playbook -i inventory.ini mongodb.yaml ; ansible-playbook -i inventory.ini catalogue.yaml ; ansible-playbook -i inventory.ini redis.yaml ; ansible-playbook -i inventory.ini user.yaml ; ansible-playbook -i inventory.ini cart.yaml ; ansible-playbook -i inventory.ini mysql.yaml ; ansible-playbook -i inventory.ini shipping.yaml ; ansible-playbook -i inventory.ini rabbitmq.yaml ; ansible-playbook -i inventory.ini payment.yaml ; ansible-playbook -i inventory.ini frontend.yaml
+
+login to the server and check if the url reflecting correct in the conf. example-> cat /etc/nginx/nginx.conf
+
+
+
+mysql -h host -u root -p password < /file/path/.sql
+
+code and configuration
+
+compile time issues
+run time issues
+
+
+

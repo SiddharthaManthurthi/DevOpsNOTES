@@ -1,0 +1,91 @@
+1. play level
+2. task level
+3. files
+4. prompt
+5. inventory
+6. command line
+
+register  ( keyword to get the output)
+set_fact
+
+shell vs command
+
+conditions -> when
+loops -> loop -> item
+list -> -/[
+dict -> {
+ 
+filters/functions
+VAR | filter
+
+
+
+1. understanding how gatherng facts works in ansible?
+facts ==varibles of the target server
+
+  play book control using facts
+  packaga
+   1. gather facts about target servers
+   2. if os_family is redht it will run dnf state name  -y
+   3. if os_family is debain it will run apt state name -y
+==============================================================
+2.loops in ansible
+
+tasks: 
+  - name: installing packages using loop
+    ansible.builtin.package:
+     name: "{{ item.name }}"
+     state: "{{ item.state }}"
+    loop:
+    - { name: 'mysql', state: 'absent' }
+    - { name: 'nginx', state: 'installed' }
+    - { name: 'zip', state: 'installed' }
+================================================================
+3. funtions in ansible
+ - funtions wors like filtes in ansible 
+ - mostly we use predifined funtions 
+ - can write own futions using python
+ 
+ 
+ ignore_errors: true # if error ansible wil not proccedd without this "rc": 1, means not success
+============================================================
+
+
+ansible-playbook -i inventory.ini 19-filters.yaml
+pip3.9 install netaddr ( python library required to check ipv4)
+
+ipV4=It has:
+
+4 numbers
+
+Separated by dots
+
+Each number between 0–255
+
+999.500.1.1 ❌ invalid
+192.168.1.1 ✅ valid
+
+
+========================================================================
+
+roboshop using ansible
+======================
+catalogue-dev.daws88s.online
+catalogue-qa.daws88s.online
+
+1. create instances
+2. create r53 records
+
+1. console
+2. cli
+3. SDK -> botocore and boto3
+
+pip3.9 install boto3 botocore
+
+Because:
+
+Ansible uses boto3 to communicate with AWS APIs.
+
+aws configure
+
+ansible-playbook -i inventory.ini -e action=destroy roboshop.yaml
